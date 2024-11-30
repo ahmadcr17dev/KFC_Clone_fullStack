@@ -4,7 +4,8 @@ import logo from "../images/logo.png";
 import styled from "styled-components";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Stylednavbar = styled.nav`
   .menu-icon {
@@ -43,6 +44,14 @@ const Stylednavbar = styled.nav`
 
 const Navbar = () => {
   const [menu, setmenu] = useState(true);
+  const user = localStorage.getItem("user");
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear("user");
+    toast.success("Logout Successful");
+    navigate('/');
+  };
 
   const openmenu = () => {
     if (window.innerWidth <= 500) {
@@ -90,22 +99,46 @@ const Navbar = () => {
                   About
                 </a>
               </li>
-              <li>
-                <NavLink
-                  to="/login"
-                  className="block py-2 md:py-0 hover:text-blue-500"
-                >
-                  Login
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/signup"
-                  className="block py-2 md:py-0 hover:text-blue-500"
-                >
-                  Sign up
-                </NavLink>
-              </li>
+              {user ? (
+                <>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className="block py-2 md:py-0 hover:text-blue-500"
+                      onClick={logout}
+                    >
+                      LogOut
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className="block py-2 md:py-0 hover:text-blue-500"
+                    >
+                      Account
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <NavLink
+                      to="/login"
+                      className="block py-2 md:py-0 hover:text-blue-500"
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/signup"
+                      className="block py-2 md:py-0 hover:text-blue-500"
+                    >
+                      Sign up
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

@@ -51,11 +51,11 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if ($row['username'] === $username) {
-        echo json_encode(['status' => 'error', 'message' => 'Username is already registered']);
+        echo json_encode(['status' => 'error', 'message' => 'Username or Email is already registered']);
         exit();
     }
     if ($row['email'] === $email) {
-        echo json_encode(['status' => 'error', 'message' => 'Email is already registered']);
+        echo json_encode(['status' => 'error', 'message' => 'Username or Email is already registered']);
         exit();
     }
 }
@@ -73,7 +73,7 @@ if (strlen($password) <= 7 || !$uppercase || !$lowercase || !$numbers || !$speci
 }
 
 // Insert user into database
-$hash_password = password_hash($password, PASSWORD_DEFAULT);
+$hash_password = password_hash($password, PASSWORD_BCRYPT);
 $sql_query = 'INSERT INTO users(username, email, password) VALUES(?, ?, ?)';
 $stmt = $conn->prepare($sql_query);
 $stmt->bind_param('sss', $username, $email, $hash_password);

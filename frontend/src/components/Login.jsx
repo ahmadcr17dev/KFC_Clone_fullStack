@@ -11,6 +11,32 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
+  const handlelogin = async(e) => {
+    e.preventDefault();
+    const api_key = import.meta.env.VITE_LOGIN_API_KEY;
+    try{
+      const response = await fetch(api_key,{
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(user),
+      });
+      const data = await response.json();
+      if(data.status === 'success'){
+        toast.success(data.message);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setuser({
+          username: "",
+          password: "",
+        })
+        navigate("/");
+      }else if(data.status === 'error'){
+        toast.error(data.message);
+      }
+    }catch(error){
+      console.log("Error: ", error);
+    }
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen ">
       <div className="bg-white border rounded-lg shadow-lg p-8 w-full max-w-md font-poppins">
@@ -19,7 +45,7 @@ const Login = () => {
           We’re glad to have you back! Please log in to continue.
         </p>
 
-        <form>
+        <form onSubmit={handlelogin}>
           <div className="mb-4">
             <label
               htmlFor="username"

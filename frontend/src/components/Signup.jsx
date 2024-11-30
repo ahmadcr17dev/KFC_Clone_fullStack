@@ -13,10 +13,10 @@ const Signup = () => {
 
   const handleregister = async (e) => {
     e.preventDefault();
-    console.log("Hello");
+    const api_key = import.meta.env.VITE_SIGNUP_API_KEY;
     try {
       const response = await fetch(
-        "http://localhost/kicksandfits/backend/api/signup.php",
+        api_key,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -31,7 +31,7 @@ const Signup = () => {
           email: "",
           password: "",
         });
-        navigate('/')
+        navigate('/login')
       } else if (data.status === "error") {
         toast.error(data.message);
       }
