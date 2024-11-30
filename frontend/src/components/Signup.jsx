@@ -11,6 +11,36 @@ const Signup = () => {
   });
   const navigate = useNavigate();
 
+  const handleregister = async (e) => {
+    e.preventDefault();
+    console.log("Hello");
+    try {
+      const response = await fetch(
+        "http://localhost/kicksandfits/backend/api/signup.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newuser),
+        }
+      );
+      const data = await response.json();
+      if (data.status === "success") {
+        toast.success(data.message);
+        setnewuser({
+          username: "",
+          email: "",
+          password: "",
+        });
+        navigate('/')
+      } else if (data.status === "error") {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Error in Registration");
+      console.log("Error in catch", error);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 border rounded-lg shadow-lg w-full max-w-md font-poppins">
@@ -21,7 +51,7 @@ const Signup = () => {
           Create an account to join our amazing community!
         </p>
         {/* Form */}
-        <form>
+        <form onSubmit={handleregister}>
           {/* Username */}
           <div className="mb-4">
             <label

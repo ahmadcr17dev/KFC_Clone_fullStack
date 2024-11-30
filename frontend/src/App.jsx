@@ -1,8 +1,9 @@
 import React from "react";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
-import LoginPage from './pages/LoginPage';
+import LoginPage from "./pages/LoginPage";
 import { Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/signup" element={<SignupPage />}></Route>
       </Routes>
+      <Toaster />
     </>
   );
 };
