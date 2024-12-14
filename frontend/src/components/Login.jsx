@@ -11,31 +11,31 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const handlelogin = async(e) => {
+  const handlelogin = async (e) => {
     e.preventDefault();
     const api_key = import.meta.env.VITE_LOGIN_API_KEY;
-    try{
-      const response = await fetch(api_key,{
+    try {
+      const response = await fetch(api_key, {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
       });
       const data = await response.json();
-      if(data.status === 'success'){
+      if (data.status === "success") {
         toast.success(data.message);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem("user", JSON.stringify(data.user));
         setuser({
           username: "",
           password: "",
-        })
+        });
         navigate("/");
-      }else if(data.status === 'error'){
+      } else if (data.status === "error") {
         toast.error(data.message);
       }
-    }catch(error){
+    } catch (error) {
       console.log("Error: ", error);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen ">

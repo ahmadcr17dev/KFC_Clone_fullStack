@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Watch } from "react-loader-spinner";
+import { Bars } from "react-loader-spinner";
 import Signup from "../components/Signup";
 
 const SignupPage = () => {
@@ -16,15 +16,14 @@ const SignupPage = () => {
     <>
       {loading ? (
         <div className="flex justify-center items-center h-screen">
-          <Watch
-            visible={true}
+          <Bars
             height="80"
             width="80"
-            radius="48"
-            color="#4fa94d"
-            ariaLabel="watch-loading"
+            color="blue"
+            ariaLabel="bars-loading"
             wrapperStyle={{}}
             wrapperClass=""
+            visible={true}
           />
         </div>
       ) : (
