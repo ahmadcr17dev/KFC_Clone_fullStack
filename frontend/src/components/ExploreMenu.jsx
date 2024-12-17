@@ -138,7 +138,7 @@ const ExploreMenu = () => {
             {images.map((image, index) => (
               <div
                 key={index}
-                className="image-box bg-stone-800 mx-3 rounded-lg shadow-md p-4"
+                className="image-box bg-stone-800 mx-3 rounded-lg shadow-md p-4 hover:cursor-pointer"
               >
                 <img src={image.pic} alt={`Slide ${index + 1}`} />
                 <p className="text-center text-white font-semibold text-base mt-4 pb-4">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiHeart, FiShoppingCart, FiPhone } from "react-icons/fi";
-import logo from "../images/logo.png";
+import sitelogo from "../images/sitelogo.png";
 import styled from "styled-components";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
@@ -8,6 +8,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Stylednavbar = styled.nav`
+  #logo{
+    width: 15rem;
+  }
   .menu-icon {
     display: none;
   }
@@ -16,7 +19,7 @@ const Stylednavbar = styled.nav`
   }
   @media (max-width: 500px) and (min-width: 0px) {
     #logo {
-      width: 7rem;
+      width: 9rem;
     }
     .phone {
       display: none;
@@ -69,38 +72,38 @@ const Navbar = () => {
   };
 
   return (
-    <Stylednavbar className="bg-white text-black shadow-lg font-poppins">
+    <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex flex-row justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <img src={logo} alt="Kicks&Fits" className="w-36" id="logo" />
+            <img src={sitelogo} alt="Kicks&Fits" id="logo"/>
           </div>
 
           {/* Links & Contact Info */}
           <div className="menu-items md:flex md:items-center w-full md:w-auto mt-4 md:mt-0">
-            <ul className="md:flex md:space-x-6 items-center font-semibold text-sm ml-14">
+            <ul className="md:flex md:space-x-6 items-center font-medium text-sm text-white ml-14">
               {/* Page Links */}
               <li>
                 <NavLink
                   to="/"
-                  className="block py-2 md:py-0 hover:text-blue-500"
+                  className="block py-2 md:py-0"
                 >
                   Home
                 </NavLink>
               </li>
               <li>
-                <a href="#" className="block py-2 md:py-0 hover:text-blue-500">
+                <a href="#" className="block py-2 md:py-0">
                   Shop
                 </a>
               </li>
               <li>
-                <a href="#" className="block py-2 md:py-0 hover:text-blue-500">
+                <a href="#" className="block py-2 md:py-0">
                   About
                 </a>
               </li>
               <li>
-                <a href="#" className="block py-2 md:py-0 hover:text-blue-500">
+                <a href="#" className="block py-2 md:py-0">
                   Admin
                 </a>
               </li>
@@ -109,7 +112,7 @@ const Navbar = () => {
                   <li>
                     <NavLink
                       to="/"
-                      className="block py-2 md:py-0 hover:text-blue-500"
+                      className="block py-2 md:py-0"
                       onClick={logout}
                     >
                       LogOut
@@ -118,7 +121,7 @@ const Navbar = () => {
                   <li>
                     <NavLink
                       to="/"
-                      className="block py-2 md:py-0 hover:text-blue-500"
+                      className="block py-2 md:py-0"
                     >
                       Account
                     </NavLink>
@@ -129,7 +132,7 @@ const Navbar = () => {
                   <li>
                     <NavLink
                       to="/login"
-                      className="block py-2 md:py-0 hover:text-blue-500"
+                      className="block py-2 md:py-0"
                     >
                       Login
                     </NavLink>
@@ -137,7 +140,7 @@ const Navbar = () => {
                   <li>
                     <NavLink
                       to="/signup"
-                      className="block py-2 md:py-0 hover:text-blue-500"
+                      className="block py-2 md:py-0"
                     >
                       Sign up
                     </NavLink>
@@ -149,9 +152,9 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row justify-between">
           {/* Contact Info */}
-          <div className="phone mt-4 md:mt-0 md:ml-6 flex items-center">
+          <div className="phone mt-4 md:mt-0 md:ml-6 flex items-center text-white">
             <FiPhone className="mr-2" />
-            <a href="tel:+123456789" className="hover:text-blue-500">
+            <a href="tel:+123456789">
               +123 456 789
             </a>
           </div>
@@ -159,19 +162,20 @@ const Navbar = () => {
           {/* Wishlist & Cart (For Larger Screens) */}
           <div className="icons hidden md:flex items-center gap-4 ml-6">
             <a href="#" className="text-xl">
-              <FiHeart />
+              <FiHeart color={'#fff'}/>
             </a>
             <a href="#" className="text-xl">
-              <FiShoppingCart />
+              <FiShoppingCart color={'#fff'}/>
             </a>
             <div>
               {menu ? (
                 <HiBars3BottomLeft
                   className="menu-icon text-xl"
                   onClick={openmenu}
+                  color={'#fff'}
                 />
               ) : (
-                <RxCross2 className="menu-icon text-xl" onClick={closemenu} />
+                <RxCross2 className="menu-icon text-xl" onClick={closemenu} color={'#fff'}/>
               )}
             </div>
           </div>
@@ -180,7 +184,7 @@ const Navbar = () => {
 
       {/* mobile menu */}
       <div
-        className="md:flex md:items-center w-full md:w-auto mt-4 md:mt-0"
+        className="md:flex md:items-center w-full md:w-auto mt-4 md:mt-0 text-white"
         id="mobile-menu"
       >
         <ul className="md:flex md:space-x-6 items-center font-semibold text-sm ml-14">

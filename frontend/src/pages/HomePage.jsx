@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { Bars } from 'react-loader-spinner';
 import HeroSection from "../components/HeroSection";
 import ExploreMenu from "../components/ExploreMenu";
+import HomeItems from "../components/HomeItems";
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -34,6 +35,7 @@ const HomePage = () => {
             <Navbar />
             <HeroSection />
             <ExploreMenu />
+            <HomeItems />
           </section>
         </>
       )}
