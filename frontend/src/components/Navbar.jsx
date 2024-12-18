@@ -102,11 +102,6 @@ const Navbar = () => {
                   About
                 </a>
               </li>
-              <li>
-                <a href="#" className="block py-2 md:py-0">
-                  Admin
-                </a>
-              </li>
               {user ? (
                 <>
                   <li>

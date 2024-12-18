@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
-import Login from "../components/Login";
 
-const LoginPage = () => {
+const HomePage = () => {
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
@@ -28,11 +27,15 @@ const LoginPage = () => {
         </div>
       ) : (
         <>
-          <Login />
+          <section>
+            <h1 className="text-black text-lg">
+                This is Admin Page
+            </h1>
+          </section>
         </>
       )}
     </>
   );
 };
 
-export default LoginPage;
+export default HomePage;

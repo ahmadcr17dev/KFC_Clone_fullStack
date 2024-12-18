@@ -15,11 +15,11 @@ const SignupPage = () => {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen bg-stone-800">
           <Bars
             height="80"
             width="80"
-            color="blue"
+            color="red"
             ariaLabel="bars-loading"
             wrapperStyle={{}}
             wrapperClass=""

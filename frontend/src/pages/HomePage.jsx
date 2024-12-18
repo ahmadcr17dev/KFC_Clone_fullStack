@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen bg-stone-800">
           <Bars
             height="80"
             width="80"
@@ -31,7 +31,7 @@ const HomePage = () => {
         </div>
       ) : (
         <>
-          <section className="bg-stone-950">
+          <section className="bg-stone-900">
             <Navbar />
             <HeroSection />
             <ExploreMenu />
