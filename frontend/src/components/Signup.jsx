@@ -15,14 +15,11 @@ const Signup = () => {
     e.preventDefault();
     const api_key = import.meta.env.VITE_SIGNUP_API_KEY;
     try {
-      const response = await fetch(
-        api_key,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newuser),
-        }
-      );
+      const response = await fetch(api_key, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newuser),
+      });
       const data = await response.json();
       if (data.status === "success") {
         toast.success(data.message);
@@ -31,7 +28,7 @@ const Signup = () => {
           email: "",
           password: "",
         });
-        navigate('/login')
+        navigate("/login");
       } else if (data.status === "error") {
         toast.error(data.message);
       }

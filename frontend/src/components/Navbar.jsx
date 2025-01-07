@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiHeart, FiShoppingCart, FiPhone } from "react-icons/fi";
-import sitelogo from "../images/sitelogo.png";
+import sitelogo from "../images/Capture.png";
 import styled from "styled-components";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const Stylednavbar = styled.nav`
   #logo{
-    width: 15rem;
+    width: 6rem;
   }
   .menu-icon {
     display: none;
@@ -19,7 +19,7 @@ const Stylednavbar = styled.nav`
   }
   @media (max-width: 500px) and (min-width: 0px) {
     #logo {
-      width: 9rem;
+      width: 4rem;
     }
     .phone {
       display: none;

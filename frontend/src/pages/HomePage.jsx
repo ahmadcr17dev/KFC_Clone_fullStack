@@ -4,6 +4,8 @@ import { Bars } from 'react-loader-spinner';
 import HeroSection from "../components/HeroSection";
 import ExploreMenu from "../components/ExploreMenu";
 import HomeItems from "../components/HomeItems";
+import Email from "../components/Email";
+import Footer from '../components/Footer';
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -36,6 +38,8 @@ const HomePage = () => {
             <HeroSection />
             <ExploreMenu />
             <HomeItems />
+            <Email/>
+            <Footer />
           </section>
         </>
       )}

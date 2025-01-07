@@ -7,8 +7,8 @@ import axios from 'axios';
 const StyledSection = styled.section`
   .image-box {
     img {
-      width: 110px;
-      height: 110px;
+      width: fit-content;
+      height: fit-content;
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -32,72 +32,6 @@ const StyledSection = styled.section`
 `;
 
 const HomeItems = () => {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 1024 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 1024, min: 768 },
-      items: 5,
-    },
-    tablet: {
-      breakpoint: { max: 768, min: 464 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
-  // Custom Left Arrow
-  const CustomLeftArrow = ({ onClick }) => (
-    <button
-      onClick={onClick}
-      className="lefty custom-arrow left-arrow"
-      style={{
-        position: "absolute",
-        left: "0px",
-        top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 1,
-        backgroundColor: "#fff",
-        border: "none",
-        borderRadius: "50%",
-        width: "30px",
-        height: "30px",
-        cursor: "pointer",
-        boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
-      }}
-    >
-      ❮
-    </button>
-  );
-
-  // Custom Right Arrow
-  const CustomRightArrow = ({ onClick }) => (
-    <button
-      onClick={onClick}
-      className="righty custom-arrow right-arrow"
-      style={{
-        position: "absolute",
-        right: "0px",
-        top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 1,
-        backgroundColor: "#fff",
-        border: "none",
-        borderRadius: "50%",
-        width: "30px",
-        height: "30px",
-        cursor: "pointer",
-        boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
-      }}
-    >
-      ❯
-    </button>
-  );
 
   const [items, setitems] = useState([]);
   const homeitems_key = import.meta.env.VITE_HOME_ITEMS_KEY;
@@ -119,35 +53,31 @@ const HomeItems = () => {
         <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
           __________
         </p>
-        <div className="mt-16 mb-16 relative">
-          <Carousel
-            responsive={responsive}
-            infinite={true}
-            autoPlay={false}
-            autoPlaySpeed={0}
-            showDots={false}
-            arrows={true}
-            customLeftArrow={<CustomLeftArrow />}
-            customRightArrow={<CustomRightArrow />}
-          >
-            {items.map((item) => (
-              <div
-                key={item.id}
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  textAlign: "center",
-                }}
-              >
-                <img
-                  src={item.image}
-                  style={{ width: "100%", height: "auto" }}
-                />
-                <h2 className="text-white">{item.name}</h2>
-                <p>${item.price}</p>
-              </div>
-            ))}
-          </Carousel>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-800 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <p className="text-left text-white font-semibold text-2xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p className="text-left text-white font-semibold bg-red-600 w-fit px-6 py-1 rounded-tr-xl rounded-bl-xl ">
+                Rs: {item.price}
+              </p>
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+            </div>
+          ))}
         </div>
       </StyledSection>
     </>
