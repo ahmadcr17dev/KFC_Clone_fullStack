@@ -93,9 +93,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <a href="#" className="block py-2 md:py-0">
+                <NavLink to="/shop" className="block py-2 md:py-0">
                   Shop
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#" className="block py-2 md:py-0">

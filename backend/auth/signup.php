@@ -28,6 +28,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 $username = $data['username'] ?? null;
 $email = $data['email'] ?? null;
 $password = $data['password'] ?? null;
+$role = 'user';
 
 if (empty($username) || empty($email) || empty($password)) {
     http_response_code(400);
@@ -74,9 +75,9 @@ if (strlen($password) <= 7 || !$uppercase || !$lowercase || !$numbers || !$speci
 
 // Insert user into database
 $hash_password = password_hash($password, PASSWORD_BCRYPT);
-$sql_query = 'INSERT INTO users(username, email, password) VALUES(?, ?, ?)';
+$sql_query = 'INSERT INTO users(username, email, password, role) VALUES(?, ?, ?, ?)';
 $stmt = $conn->prepare($sql_query);
-$stmt->bind_param('sss', $username, $email, $hash_password);
+$stmt->bind_param('ssss', $username, $email, $hash_password, $role);
 
 if ($stmt->execute()) {
     echo json_encode(['status' => 'success', 'message' => "$username is registered successfully"]);

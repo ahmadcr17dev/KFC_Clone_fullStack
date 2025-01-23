@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
-import sitelogo from "../images/sitelogo.png";
+import sitelogo from "../images/Capture.png";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -37,11 +37,12 @@ const Login = () => {
       if (data.success) {
         toast.success(data.message);
         localStorage.setItem("user", JSON.stringify(data.user));
+        console.log('Logged Data: ', data.user);
 
         // Navigate based on user type
-        if (data.user_type === "admin") {
+        if (data.role === "admin") {
           navigate("/admin");
-        } else if (data.user_type === "user") {
+        } else if (data.role === "user") {
           navigate("/");
         }
 
@@ -62,7 +63,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-stone-900">
       <div className="bg-stone-800 rounded-lg shadow-lg p-8 w-full max-w-md font-poppins">
-        <img src={sitelogo} alt="logo" className="block mx-auto w-56 mb-8" />
+        <img src={sitelogo} alt="logo" className="block mx-auto w-24 mb-8" />
         <p className="text-center text-stone-300 mb-6">
           Welcome back! Please log in to continue.
         </p>
@@ -111,7 +112,7 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-red-700 text-white py-2 rounded-sm text-sm font-medium hover:bg-red-800 transition duration-300"
+            className="w-full bg-red-700 text-white py-2 rounded-sm text-md font-medium hover:bg-red-800 transition duration-300"
           >
             Login
           </button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
-import Admin from "../components/Admin";
+import Navbar from "../components/Navbar";
+import Shop from "../components/Shop";
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -15,7 +16,7 @@ const HomePage = () => {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-screen bg-stone-800">
+        <div className="flex justify-center items-center h-screen bg-stone-900">
           <Bars
             height="80"
             width="80"
@@ -27,9 +28,10 @@ const HomePage = () => {
           />
         </div>
       ) : (
-        <>
-          <Admin />
-        </>
+        <section className="bg-stone-800">
+          <Navbar />
+          <Shop />
+        </section>
       )}
     </>
   );

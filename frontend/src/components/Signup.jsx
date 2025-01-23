@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import sitelogo from "../images/sitelogo.png";
+import sitelogo from "../images/Capture.png";
 
 const Signup = () => {
   const [newuser, setnewuser] = useState({
@@ -42,7 +42,7 @@ const Signup = () => {
     <div className="flex items-center justify-center min-h-screen bg-stone-900">
       <div className="bg-stone-800 p-8 rounded-lg shadow-lg w-full max-w-md font-poppins">
         {/* Website Name */}
-        <img className="block mx-auto w-56 mb-8" src={sitelogo} alt="logo" />
+        <img className="block mx-auto w-24 mb-8" src={sitelogo} alt="logo" />
         {/* Warming Line */}
         <p className="text-center text-stone-300 mb-6">
           Create an account to join our amazing community!
@@ -115,7 +115,7 @@ const Signup = () => {
           {/* Sign Up Button */}
           <button
             type="submit"
-            className="w-full bg-red-600 text-white py-2 rounded-sm text-sm font-medium hover:bg-red-700 transition duration-300"
+            className="w-full bg-red-600 text-white py-2 rounded-sm text-md font-medium hover:bg-red-700 transition duration-300"
           >
             Sign Up
           </button>

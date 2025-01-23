@@ -46,8 +46,12 @@ if ($resultadmin->num_rows > 0) {
     if ($password === $adminrow['password']) {
         echo json_encode([
             "success" => true,
-            "user_type" => "admin",
-            "id" => $adminrow['id'],
+            "role" => "admin",
+            "user" => [
+                "id" => $adminrow['id'],
+                "username" => $adminrow['username'],
+                "email" => $adminrow['email'] ?? null
+            ],
             "message" => "Login successful"
         ]);
         exit();
@@ -70,8 +74,12 @@ if ($resultuser->num_rows > 0) {
     if (password_verify($password, $rowuser['password'])) {
         echo json_encode([
             "success" => true,
-            "user_type" => "user",
-            "id" => $rowuser['id'],
+            "role" => "user",
+            "user" => [
+                "id" => $rowuser['id'],
+                "username" => $rowuser['username'],
+                "email" => $rowuser['email'] ?? null
+            ],
             "message" => "Login successful"
         ]);
         exit();
