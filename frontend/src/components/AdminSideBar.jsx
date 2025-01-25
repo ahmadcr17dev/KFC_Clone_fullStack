@@ -6,11 +6,9 @@ import { HiOutlineTrash } from "react-icons/hi2";
 import { PiUsersThree } from "react-icons/pi";
 import { PiCoins } from "react-icons/pi";
 import { IoLogOutOutline } from "react-icons/io5";
-import { NavLink, useNavigate, useRoutes } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import sitelogo from "../images/Capture.png";
-import HomePage from "../pages/AdminPage";
-import AdminUsers from "./AdminUsers";
 
 const AdminSideBar = () => {
   const navigate = useNavigate();
