@@ -57,7 +57,7 @@ const AdminUsers = () => {
 
   return (
     <div
-      className="p-6 bg-stone-800 rounded text-white"
+      className="p-6 bg-stone-800 rounded text-white font-poppins"
       style={{ width: "1000px"}}
     >
       <h1 className="text-2xl font-semibold mb-4 text-white">Registered Users</h1>
@@ -77,7 +77,7 @@ const AdminUsers = () => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={user.id} className="bg-stone-700">
+              <tr key={user.id} className="bg-stone-700 text-sm">
                 <td className="border border-stone-500 px-4 py-2">
                   {index + 1}
                 </td>

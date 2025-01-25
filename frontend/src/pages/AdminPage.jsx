@@ -3,6 +3,7 @@ import { Bars } from "react-loader-spinner";
 import AdminSideBar from "../components/AdminSideBar";
 import { Routes, Route } from "react-router-dom";
 import AdminUsers from "../components/AdminUsers";
+import AddProducts from "../components/AddProducts";
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -35,7 +36,8 @@ const HomePage = () => {
           </div>
           <div className="ml-8 mt-16">
             <Routes>
-              <Route path="admin/users" element={<AdminUsers />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="addproducts" element={<AddProducts />} />
             </Routes>
           </div>
         </section>

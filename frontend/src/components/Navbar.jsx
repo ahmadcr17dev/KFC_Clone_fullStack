@@ -93,7 +93,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/shop" className="block py-2 md:py-0">
+                <NavLink to="shop" className="block py-2 md:py-0">
                   Shop
                 </NavLink>
               </li>
@@ -126,7 +126,7 @@ const Navbar = () => {
                 <>
                   <li>
                     <NavLink
-                      to="/login"
+                      to="login"
                       className="block py-2 md:py-0"
                     >
                       Login
@@ -134,7 +134,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <NavLink
-                      to="/signup"
+                      to="signup"
                       className="block py-2 md:py-0"
                     >
                       Sign up
