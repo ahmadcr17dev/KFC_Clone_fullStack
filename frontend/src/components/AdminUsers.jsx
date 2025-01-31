@@ -57,7 +57,7 @@ const AdminUsers = () => {
 
   return (
     <div
-      className="p-6 bg-stone-800 rounded text-white font-poppins"
+      className="p-6 mt-10 bg-stone-800 rounded text-white font-poppins"
       style={{ width: "1000px"}}
     >
       <h1 className="text-2xl font-semibold mb-4 text-white">Registered Users</h1>

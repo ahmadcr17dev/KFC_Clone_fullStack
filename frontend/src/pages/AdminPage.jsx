@@ -34,7 +34,7 @@ const HomePage = () => {
           <div className="bg-stone-800 w-fit h-full py-10 pl-6 pr-4">
             <AdminSideBar />
           </div>
-          <div className="ml-8 mt-16">
+          <div className="ml-8">
             <Routes>
               <Route path="users" element={<AdminUsers />} />
               <Route path="addproducts" element={<AddProducts />} />

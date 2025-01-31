@@ -1,71 +1,167 @@
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const AddProducts = () => {
+  const [productid, setproductid] = useState("");
+  const [productname, setproductname] = useState("");
+  const [productprice, setproductprice] = useState("");
+  const [productstock, setproductstock] = useState("");
+  const [productcategory, setproductcategory] = useState("");
+  const [productdiscount, setproductdiscount] = useState("");
+  const [productimage, setproductimage] = useState(null);
+  const [productdescription, setproductdescription] = useState("");
+  const [imagePreview, setImagePreview] = useState(null); // New state for image preview
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("productid", productid);
+    formdata.append("productname", productname);
+    formdata.append("productprice", productprice);
+    formdata.append("productdescription", productdescription);
+    formdata.append("productcategory", productcategory);
+    formdata.append("productstock", productstock);
+    formdata.append("productdiscount", productdiscount);
+    formdata.append("productimage", productimage);
+
+    try {
+      const response = await axios.post(
+        "http://localhost/kicksandfits/backend/fetching/upload.php",
+        formdata,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      // Display the toast message from the backend
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
+  // Handle file change and preview the image
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setproductimage(file);
+    setImagePreview(URL.createObjectURL(file)); // Set the preview URL
+  };
+
   return (
-    <>
-      <section className="bg-stone-800 py-6 px-8 font-poppins rounded">
-        <h1 className="text-white text-2xl font-medium">Add Products</h1>
-        <form className="mt-10">
-          <div className="flex flex-row">
+    <section className="bg-stone-800 py-6 px-8 mt-6 font-poppins rounded">
+      <h1 className="text-white text-2xl font-medium">Add Products</h1>
+      <form className="mt-6" onSubmit={handleSubmit}>
+        <div className="flex flex-row">
+          <input
+            name="productId"
+            placeholder="Product ID"
+            required
+            type="text"
+            value={productid}
+            onChange={(e) => setproductid(e.target.value)}
+            className="w-[200px] h-10 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+          />
+          <input
+            name="productName"
+            placeholder="Product Name"
+            required
+            type="text"
+            value={productname}
+            onChange={(e) => setproductname(e.target.value)}
+            className="w-[450px] h-10 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+          />
+          <input
+            name="productPrice"
+            placeholder="Product Price"
+            required
+            type="text"
+            value={productprice}
+            onChange={(e) => setproductprice(e.target.value)}
+            className="w-[250px] h-10 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+          />
+        </div>
+
+        <div className="flex flex-row">
+          <textarea
+            name="productDescription"
+            placeholder="Product Description"
+            required
+            rows={"5"}
+            cols={"90"}
+            value={productdescription}
+            onChange={(e) => setproductdescription(e.target.value)}
+            className="mt-4 p-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+          />
+          <div className="flex flex-col">
+            <select
+              name="productCategory"
+              value={productcategory}
+              onChange={(e) => setproductcategory(e.target.value)}
+              className="text-sm bg-stone-700 text-stone-100 mt-4 h-10 p-1 ml-4 rounded focus:outline-0"
+            >
+              <option value="" disabled>Select Category</option>
+              <option value="pizza">Pizza</option>
+              <option value="burger">Burger</option>
+              <option value="chicken">Chicken</option>
+              <option value="drinks">Drink</option>
+              <option value="family">Family Deals</option>
+            </select>
             <input
-              placeholder="Product ID"
+              name="stockStatus"
+              placeholder="Stock Status"
               required
-              type="text"
-              className="w-[200px] h-10 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+              type="number"
+              min="0"
+              max="30"
+              value={productstock}
+              onChange={(e) => setproductstock(e.target.value)}
+              className="w-[250px] h-10 px-2 ml-4 mt-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
             />
             <input
-              placeholder="Product Name"
+              name="discount"
+              placeholder="Discount"
               required
               type="text"
-              className="w-[450px] h-10 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
-            />
-            <input
-              placeholder="Product price"
-              required
-              type="text"
-              className="w-[250px] h-10 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+              value={productdiscount}
+              onChange={(e) => setproductdiscount(e.target.value)}
+              className="w-[250px] h-10 px-2 ml-4 mt-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
             />
           </div>
-          <div className="flex flex-row">
-            <textarea
-              placeholder="Product Description"
-              required
-              type="text"
-              rows={"5"}
-              cols={"90"}
-              className="mt-4 p-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+        </div>
+
+        <label className="w-full flex flex-row mt-4 text-left py-2 px-4 text-sm text-white bg-red-600 rounded cursor-pointer focus:outline-0">
+          Upload Product Image
+          <input
+            type="file"
+            className="ml-8"
+            onChange={handleImageChange}
+            required
+          />
+        </label>
+
+        {/* Image Preview */}
+        {imagePreview && (
+          <div className="mt-4">
+            <img
+              src={imagePreview}
+              alt="Product Preview"
+              className="w-48 h-48 object-cover rounded"
             />
-            <div className="flex flex-col">
-              <select className="text-sm bg-stone-700 text-stone-100 mt-4 h-10 p-1 ml-4 rounded focus:outline-0">
-                <option disabled>Select Category</option>
-                <option value={"pizza"}>Pizza</option>
-                <option value={"burger"}>Burger</option>
-                <option value={"chicken"}>Chicken</option>
-                <option value={"drinks"}>Drink</option>
-                <option value={"family"}>Family Deals</option>
-              </select>
-              <input
-                placeholder="Stock Status"
-                required
-                type="number"
-                min={"0"}
-                max={"30"}
-                className="w-[250px] h-10 px-2 ml-4 mt-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
-              />
-              <input
-                placeholder="Discount"
-                required
-                type="text"
-                className="w-[250px] h-10 px-2 ml-4 mt-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
-              />
-            </div>
           </div>
-          <button className="w-full mt-4 py-2 text-sm text-white bg-red-600 rounded focus:outline-0">
-            Upload Product Image
-          </button>
-        </form>
-      </section>
-    </>
+        )}
+
+        <button
+          type="submit"
+          className="w-full mt-4 py-2 text-sm text-white bg-blue-600 rounded focus:outline-0"
+        >
+          Submit Product
+        </button>
+      </form>
+    </section>
   );
 };
 
