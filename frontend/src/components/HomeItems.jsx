@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import styled from "styled-components";
 import axios from 'axios';

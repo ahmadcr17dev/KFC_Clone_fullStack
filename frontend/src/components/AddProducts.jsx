@@ -12,6 +12,7 @@ const AddProducts = () => {
   const [productimage, setproductimage] = useState(null);
   const [productdescription, setproductdescription] = useState("");
   const [imagePreview, setImagePreview] = useState(null); // New state for image preview
+  const upload_product_key = import.meta.env.VITE_UPLOAD_PRODUCTS_KEY;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ const AddProducts = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost/kicksandfits/backend/fetching/upload.php",
+        upload_product_key,
         formdata,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

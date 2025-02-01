@@ -4,17 +4,16 @@ import toast from "react-hot-toast";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
+  const users_key = import.meta.env.VITE_USERS_KEY;
+  const delete_users_key = import.meta.env.VITE_DELETE_USERS_KEY;
 
   useEffect(() => {
     const handlefetch = async () => {
       try {
-        const response = await fetch(
-          "http://localhost/kicksandfits/backend/fetching/users.php",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const response = await fetch(users_key, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -35,14 +34,11 @@ const AdminUsers = () => {
 
   const handledelete = async (id) => {
     try {
-      const response = await fetch(
-        "http://localhost/kicksandfits/backend/fetching/deleteuser.php",
-        {
-          method: "DELETE",
-          body: JSON.stringify({ id }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(delete_users_key, {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await response.json();
       if (data.success) {
         setUsers(users.filter((user) => user.id !== id));
@@ -58,9 +54,11 @@ const AdminUsers = () => {
   return (
     <div
       className="p-6 mt-10 bg-stone-800 rounded text-white font-poppins"
-      style={{ width: "1000px"}}
+      style={{ width: "1000px" }}
     >
-      <h1 className="text-2xl font-semibold mb-4 text-white">Registered Users</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-white">
+        Registered Users
+      </h1>
       <div className="overflow-x-auto">
         <table className="table-auto w-full text-center border-collapse border border-gray-300">
           <thead>
