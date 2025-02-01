@@ -29,7 +29,7 @@ const HomePage = () => {
         </div>
       ) : (
         <section className="bg-stone-800">
-          <Navbar />
+          <Navbar/>
           <Shop />
         </section>
       )}

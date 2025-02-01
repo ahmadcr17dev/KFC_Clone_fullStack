@@ -72,7 +72,7 @@ const Navbar = () => {
   };
 
   return (
-    <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins">
+    <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins sticky top-0">
       <div className="container mx-auto flex items-center justify-between p-4">
         <div className="flex flex-row justify-between">
           {/* Logo */}

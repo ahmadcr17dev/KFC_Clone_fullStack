@@ -9,9 +9,9 @@ header('Content-Type: application/json');
 // Include database connection
 include('../database/connection.php');
 
-// Query to fetch data
-$sql_query = "SELECT * FROM products WHERE category='pizza'";
-$result = mysqli_query($conn, $sql_query);
+// Query to fetch pizza
+$pizza_query = "SELECT * FROM products";
+$result = mysqli_query($conn, $pizza_query);
 
 // Check if query succeeded
 if (!$result) {
@@ -27,13 +27,12 @@ if (!$result) {
 $items = array();
 while ($row = mysqli_fetch_assoc($result)) {
     if (isset($row['image'])) {
-        // $row['image'] = base64_encode($row['image']); // Encode binary data
-        $row['image'] = "data:image/jpeg;base64," . base64_encode($row['image']);
+        $row['image'] = base64_encode($row['image']); // Encode binary data
+        $row['description'] = nl2br($row['description']); // Convert new lines to <br />
 
     }
     $items[] = $row;
 }
-
 // Output the data as JSON
 echo json_encode($items);
 

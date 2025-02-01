@@ -107,6 +107,7 @@ const AddProducts = () => {
               <option value="" disabled>Select Category</option>
               <option value="pizza">Pizza</option>
               <option value="burger">Burger</option>
+              <option value="fries">Fries</option>
               <option value="chicken">Chicken</option>
               <option value="drinks">Drink</option>
               <option value="family">Family Deals</option>

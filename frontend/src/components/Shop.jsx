@@ -6,13 +6,14 @@ import {
   GiDrinkMe,
 } from "react-icons/gi";
 import { HiMiniUsers } from "react-icons/hi2";
+import { GiFrenchFries } from "react-icons/gi";
 import axios from "axios";
 import styled from "styled-components";
 
 const StyledSection = styled.section`
   .image-box img {
-    width: 100%;
-    height: 200px;
+    width: max-content;
+    height: max-content;
     object-fit: cover;
     display: block;
     margin: auto;
@@ -48,13 +49,21 @@ const Shop = () => {
       .catch((error) => console.error("Fetch error:", error));
   }, []);
 
+  // 🔥 Filter products by category
+  const getProductsByCategory = (category) => {
+    return pizzaitems.filter(
+      (product) => product.category.toLowerCase() === category.toLowerCase()
+    );
+  };
+
   return (
-    <section className="h-full w-full font-poppins">
+    <section className="h-full w-full font-poppins bg-stone-800">
       {/* Category Buttons */}
-      <div className="cat-names mt-16 flex flex-row justify-center px-8">
+      <div className="cat-names py-10 flex flex-row justify-center px-8 sticky top-[4.8rem] bg-stone-800">
         {[
           { icon: <GiPizzaSlice size="1.5rem" />, label: "Pizza" },
           { icon: <GiHamburger size="1.5rem" />, label: "Burger" },
+          { icon: <GiFrenchFries size="1.5rem" />, label: "Fries" },
           { icon: <GiChickenOven size="1.5rem" />, label: "Chicken" },
           { icon: <GiDrinkMe size="1.5rem" />, label: "Drinks" },
           { icon: <HiMiniUsers size="1.5rem" />, label: "Family Deals" },
@@ -70,7 +79,7 @@ const Shop = () => {
       </div>
 
       {/* Product List */}
-      <StyledSection className="mt-24 font-poppins pb-16 px-10">
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
         <h1 className="title text-4xl text-white font-bold">Pizza Deals</h1>
         <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
           __________
@@ -83,21 +92,133 @@ const Shop = () => {
             marginTop: "40px",
           }}
         >
-          {pizzaitems.map((item, index) => (
+          {getProductsByCategory("pizza").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-800 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
               />
-              <p className="text-left text-white font-semibold text-1xl mt-4 pb-4">
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
               </p>
-              <p className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4">
-                {item.description}
+              <p
+                dangerouslySetInnerHTML={{ __html: item.description }}
+                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+              ></p>
+              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+                Starts from Rs: {item.price}
               </p>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
+        <h1 className="title text-4xl text-white font-bold">Burger Deals</h1>
+        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+          __________
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {getProductsByCategory("burger").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{ __html: item.description }}
+                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+              ></p>
+              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+                Starts from Rs: {item.price}
+              </p>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
+        <h1 className="title text-4xl text-white font-bold">Fries Deals</h1>
+        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+          __________
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {getProductsByCategory("fries").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{ __html: item.description }}
+                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+              ></p>
+              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+                Starts from Rs: {item.price}
+              </p>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
+        <h1 className="title text-4xl text-white font-bold">Chicken Deals</h1>
+        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+          __________
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {getProductsByCategory("chicken").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{ __html: item.description }}
+                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+              ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
