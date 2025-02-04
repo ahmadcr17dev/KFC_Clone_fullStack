@@ -6,9 +6,10 @@ import { HiBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const Stylednavbar = styled.nav`
-  #logo{
+  #logo {
     width: 6rem;
   }
   .menu-icon {
@@ -16,6 +17,17 @@ const Stylednavbar = styled.nav`
   }
   #mobile-menu {
     display: none;
+  }
+  #cart {
+    /* margin: 1rem 0rem 0rem 0rem; */
+    span {
+      position: absolute;
+      top: 1.4rem;
+      right: 3.3rem;
+      z-index: 0;
+      background-color: red;
+      color: white;
+    }
   }
   @media (max-width: 500px) and (min-width: 0px) {
     #logo {
@@ -49,11 +61,12 @@ const Navbar = () => {
   const [menu, setmenu] = useState(true);
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
+  const cartcount = useSelector((state) => state.cart.items.length);
 
   const logout = () => {
     localStorage.clear("user");
     toast.success("Logout Successful");
-    navigate('/');
+    navigate("/");
   };
 
   const openmenu = () => {
@@ -77,7 +90,7 @@ const Navbar = () => {
         <div className="flex flex-row justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <img src={sitelogo} alt="Kicks&Fits" id="logo"/>
+            <img src={sitelogo} alt="Kicks&Fits" id="logo" />
           </div>
 
           {/* Links & Contact Info */}
@@ -85,10 +98,7 @@ const Navbar = () => {
             <ul className="md:flex md:space-x-6 items-center font-medium text-sm text-white ml-14">
               {/* Page Links */}
               <li>
-                <NavLink
-                  to="/"
-                  className="block py-2 md:py-0"
-                >
+                <NavLink to="/" className="block py-2 md:py-0">
                   Home
                 </NavLink>
               </li>
@@ -114,10 +124,7 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/"
-                      className="block py-2 md:py-0"
-                    >
+                    <NavLink to="/" className="block py-2 md:py-0">
                       Account
                     </NavLink>
                   </li>
@@ -125,18 +132,12 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <NavLink
-                      to="login"
-                      className="block py-2 md:py-0"
-                    >
+                    <NavLink to="login" className="block py-2 md:py-0">
                       Login
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="signup"
-                      className="block py-2 md:py-0"
-                    >
+                    <NavLink to="signup" className="block py-2 md:py-0">
                       Sign up
                     </NavLink>
                   </li>
@@ -149,28 +150,37 @@ const Navbar = () => {
           {/* Contact Info */}
           <div className="phone mt-4 md:mt-0 md:ml-6 flex items-center text-white">
             <FiPhone className="mr-2" />
-            <a href="tel:+123456789">
-              +123 456 789
-            </a>
+            <a href="tel:+123456789">+123 456 789</a>
           </div>
 
           {/* Wishlist & Cart (For Larger Screens) */}
           <div className="icons hidden md:flex items-center gap-4 ml-6">
             <a href="#" className="text-xl">
-              <FiHeart color={'#fff'}/>
+              <FiHeart color={"#fff"} />
             </a>
-            <a href="#" className="text-xl">
-              <FiShoppingCart color={'#fff'}/>
-            </a>
+            <div id="cart">
+              <NavLink to="/cart">
+                {<FiShoppingCart size={"1.2rem"} color={"#fff"} />}
+              </NavLink>
+              {cartcount > 0 && (
+                <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full px-[0.2rem] py-[0.1rem]">
+                  {cartcount}
+                </span>
+              )}
+            </div>
             <div>
               {menu ? (
                 <HiBars3BottomLeft
                   className="menu-icon text-xl"
                   onClick={openmenu}
-                  color={'#fff'}
+                  color={"#fff"}
                 />
               ) : (
-                <RxCross2 className="menu-icon text-xl" onClick={closemenu} color={'#fff'}/>
+                <RxCross2
+                  className="menu-icon text-xl"
+                  onClick={closemenu}
+                  color={"#fff"}
+                />
               )}
             </div>
           </div>

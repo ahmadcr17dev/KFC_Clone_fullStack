@@ -9,6 +9,9 @@ import { HiMiniUsers } from "react-icons/hi2";
 import { GiFrenchFries } from "react-icons/gi";
 import axios from "axios";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { addtocart } from "../redux/cartslice";
+import toast from "react-hot-toast";
 
 const StyledSection = styled.section`
   .image-box img {
@@ -38,6 +41,8 @@ const StyledSection = styled.section`
 const Shop = () => {
   const [pizzaitems, setpizzaitems] = useState([]);
   const products_key = import.meta.env.VITE_PRODUCTS_KEY;
+  const dispatch = useDispatch();
+  const cartitems = useSelector((state) => state.cart);
 
   useEffect(() => {
     axios
@@ -56,12 +61,27 @@ const Shop = () => {
     );
   };
 
+  const handleaddtocart = (item) => {
+    const existproduct = cartitems.items.some(
+      cartitem => cartitem.id === item.id
+    );
+    if (!existproduct) {
+      dispatch(addtocart(item));
+      toast.success(`${item.name} is added to cart`);
+    } else {
+      toast.error(`${item.name} is already in cart`);
+    }
+  };
+
   return (
     <section className="h-full w-full font-poppins bg-stone-800">
       {/* Category Buttons */}
       <div className="cat-names py-10 flex flex-row justify-center px-8 sticky top-[4.8rem] bg-stone-800">
         {[
-          { icon: <GiPizzaSlice size="1.5rem" />, label: "Pizza" },
+          {
+            icon: <GiPizzaSlice size="1.5rem" />,
+            label: "Pizza",
+          },
           { icon: <GiHamburger size="1.5rem" />, label: "Burger" },
           { icon: <GiFrenchFries size="1.5rem" />, label: "Fries" },
           { icon: <GiChickenOven size="1.5rem" />, label: "Chicken" },
@@ -105,12 +125,20 @@ const Shop = () => {
                 {item.name}
               </p>
               <p
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium text-sm mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
@@ -142,12 +170,20 @@ const Shop = () => {
                 {item.name}
               </p>
               <p
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
@@ -179,12 +215,20 @@ const Shop = () => {
                 {item.name}
               </p>
               <p
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
@@ -216,12 +260,110 @@ const Shop = () => {
                 {item.name}
               </p>
               <p
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                className="text-left text-white text-sm font-medium text-1xl mt-4 pb-4"
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
+        <h1 className="title text-4xl text-white font-bold">Drinks</h1>
+        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+          __________
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {getProductsByCategory("drinks").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
+              ></p>
+              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+                Starts from Rs: {item.price}
+              </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-10">
+        <h1 className="title text-4xl text-white font-bold">Family Deals</h1>
+        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+          __________
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px",
+            marginTop: "40px",
+          }}
+        >
+          {getProductsByCategory("family").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+              />
+              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
+              ></p>
+              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+                Starts from Rs: {item.price}
+              </p>
+              <button
+                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
+                onClick={() => handleaddtocart(item)}
+              >
+                Add To Cart
+              </button>
             </div>
           ))}
         </div>
