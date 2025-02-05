@@ -33,7 +33,15 @@ const AdminSideBar = () => {
             marginLeft: "1rem",
           }}
         />
-        <NavLink className="flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded hover:cursor-pointer hover:bg-black">
+        <NavLink
+          to="allproducts"
+          className={({ isActive }) => {
+            console.log("isActive:", isActive);
+            return `flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded ${
+              isActive ? "bg-black" : "hover:bg-black"
+            }`;
+          }}
+        >
           <AiOutlineProduct color={"white"} size={"1.17rem"} />
           <p className="text-sm ml-2">All Products</p>
         </NavLink>
@@ -49,7 +57,15 @@ const AdminSideBar = () => {
           <PiCirclesThreePlus color={"white"} size={"1.17rem"} />
           <p className="text-sm ml-2">Add Product</p>
         </NavLink>
-        <NavLink className="flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded hover:cursor-pointer hover:bg-black">
+        <NavLink
+          to="updateproducts"
+          className={({ isActive }) => {
+            console.log("isActive:", isActive);
+            return `flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded ${
+              isActive ? "bg-black" : "hover:bg-black"
+            }`;
+          }}
+        >
           <GoPencil color={"white"} size={"1.1rem"} />
           <p className="text-sm ml-2">Update Product</p>
         </NavLink>

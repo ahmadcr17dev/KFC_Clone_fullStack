@@ -3,13 +3,16 @@ import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "typeface-poppins";
 import PrivateRoute from "./components/PrivateRoute";
 import ShopPage from "./pages/ShopPage";
 import AdminUsers from "./components/AdminUsers";
 import AddProducts from "./components/AddProducts";
+import AllProducts from "./components/AllProducts";
+import UpdateProduct from "./components/UpdateProduct";
+import Cart from './components/Cart';
 
 const App = () => {
   return (
@@ -19,10 +22,14 @@ const App = () => {
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="signup" element={<SignupPage />}></Route>
         <Route path="admin" element={<AdminPage />}>
+          <Route index element={<Navigate to="allproducts" replace />} />
+          <Route path="allproducts" element={<AllProducts />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="addproducts" element={<AddProducts />} />
+          <Route path="updateproducts" element={<UpdateProduct />} />
         </Route>
-        <Route path="shop" element={<ShopPage />}></Route>
+        <Route path="shop" element={<ShopPage />} />
+        <Route path="cart" element={<Cart />} />
         {/* <Route
           path="/admin"
           element={

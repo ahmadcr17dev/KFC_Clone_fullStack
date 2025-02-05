@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
+import { Outlet } from "react-router-dom"; // Import Outlet
 import AdminSideBar from "../components/AdminSideBar";
-import { Routes, Route } from "react-router-dom";
-import AdminUsers from "../components/AdminUsers";
-import AddProducts from "../components/AddProducts";
 
-const HomePage = () => {
+const AdminPage = () => {
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setloading(false);
     }, 3000);
-    return () => clearInterval(timer);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -24,8 +22,6 @@ const HomePage = () => {
             width="80"
             color="red"
             ariaLabel="bars-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
             visible={true}
           />
         </div>
@@ -35,10 +31,7 @@ const HomePage = () => {
             <AdminSideBar />
           </div>
           <div className="ml-8">
-            <Routes>
-              <Route path="users" element={<AdminUsers />} />
-              <Route path="addproducts" element={<AddProducts />} />
-            </Routes>
+            <Outlet /> {/* This will render the nested routes dynamically */}
           </div>
         </section>
       )}
@@ -46,4 +39,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default AdminPage;
