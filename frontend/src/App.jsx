@@ -13,6 +13,7 @@ import AddProducts from "./components/AddProducts";
 import AllProducts from "./components/AllProducts";
 import UpdateProduct from "./components/UpdateProduct";
 import Cart from './components/Cart';
+import Wishlist from './components/Wishlist';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         </Route>
         <Route path="shop" element={<ShopPage />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="wishlist" element={<Wishlist/>} />
         {/* <Route
           path="/admin"
           element={

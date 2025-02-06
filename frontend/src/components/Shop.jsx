@@ -12,6 +12,10 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { addtocart } from "../redux/cartslice";
 import toast from "react-hot-toast";
+import { FiHeart } from "react-icons/fi";
+import { addtowishlist } from "../redux/wishslice";
+import chicken from "../images/chicken.webp";
+import cheese from "../images/cheese.webp";
 
 const StyledSection = styled.section`
   .image-box img {
@@ -43,6 +47,21 @@ const Shop = () => {
   const products_key = import.meta.env.VITE_PRODUCTS_KEY;
   const dispatch = useDispatch();
   const cartitems = useSelector((state) => state.cart);
+  const wishitems = useSelector((state) => state.wish);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  // const [customizations, setCustomizations] = useState({
+  //   size: "",
+  //   flavors: "",
+  // });
+
+  const openPopup = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closePopup = () => {
+    setSelectedProduct(null);
+    setCustomizations({ size: "", flavors: "" });
+  };
 
   useEffect(() => {
     axios
@@ -63,13 +82,25 @@ const Shop = () => {
 
   const handleaddtocart = (item) => {
     const existproduct = cartitems.items.some(
-      cartitem => cartitem.id === item.id
+      (cartitem) => cartitem.id === item.id
     );
     if (!existproduct) {
       dispatch(addtocart(item));
       toast.success(`${item.name} is added to cart`);
     } else {
       toast.error(`${item.name} is already in cart`);
+    }
+  };
+
+  const handleaddtowishlist = (item) => {
+    const existeditem = wishitems.items.some(
+      (wishitem) => wishitem.id === item.id
+    );
+    if (!existeditem) {
+      dispatch(addtowishlist(item));
+      toast.success(`${item.name} is added to wishlist`);
+    } else {
+      toast.error(`${item.name} is already in wishlist`);
     }
   };
 
@@ -116,6 +147,7 @@ const Shop = () => {
             <div
               key={index}
               className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              onClick={() => openPopup(item)}
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
@@ -133,16 +165,119 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
       </StyledSection>
+
+      {/* Pop-up Window */}
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center font-poppins"
+          onClick={closePopup}
+        >
+          <div
+            className="bg-white py-6 px-10 rounded-lg shadow-lg w-full mx-[190px] relative h-fit"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          >
+            <button
+              className="absolute top-2 right-2 text-white hover:bg-red-800 bg-red-500 w-8 h-8 rounded-full"
+              onClick={closePopup}
+            >
+              ✖
+            </button>
+            <div className="flex flex-row w-full">
+              <img
+                src={`data:image/jpeg;base64,${selectedProduct.image}`}
+                alt={selectedProduct.name}
+                className="w-[400px] h-[400px] object-cover rounded-md"
+              />
+              <div className="w-full">
+                <h2 className="text-2xl font-semibold mt-2">
+                  {selectedProduct.name}
+                </h2>
+                <p className="text-stone-900 font-medium mt-4">
+                  Rs: {selectedProduct.price}
+                </p>
+                {selectedProduct.type === "single" && (
+                  <>
+                    <div className="flex flex-col mt-10">
+                      <div className="flex flex-row justify-between py-1">
+                        <label>
+                          <input type="radio" name="size" /> Small
+                        </label>
+                        <p className="text-stone-700 font-medium">Rs: 600</p>
+                      </div>
+                      <hr className="py-0" />
+                      <div className="flex flex-row justify-between py-3">
+                        <label>
+                          <input type="radio" name="size" /> Medium
+                        </label>
+                        <p className="text-stone-700 font-medium">Rs: 1200</p>
+                      </div>
+                      <hr />
+                      <div className="flex flex-row justify-between py-3">
+                        <label>
+                          <input type="radio" name="size" /> Large
+                        </label>
+                        <p className="text-stone-700 font-medium">Rs: 1800</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-black text-[1rem] font-semibold mt-8">
+                        Choose Small Toppings
+                      </p>
+                      <div className="flex flex-row justify-between mt-6">
+                        <label>
+                          <input type="checkbox" name="toppings" /> Chicken
+                        </label>
+                        <img
+                          src={chicken}
+                          alt="chicken"
+                          className="mt-[-11px]"
+                        />
+                        <p>Rs: 100</p>
+                      </div>
+                      <hr />
+                      <div className="flex flex-row justify-between mt-6">
+                        <label>
+                          <input type="checkbox" name="toppings" /> Cheese
+                        </label>
+                        <img src={cheese} alt="cheese" className="mt-[-11px]" />
+                        <p>Rs: 100</p>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Confirm Button */}
+            {/* <button
+              className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700"
+              onClick={() => {
+                closePopup();
+              }}
+            >
+              Confirm Selection
+            </button> */}
+          </div>
+        </div>
+      )}
 
       <StyledSection className="mt-12 font-poppins pb-16 px-10">
         <h1 className="title text-4xl text-white font-bold">Burger Deals</h1>
@@ -178,12 +313,20 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -223,12 +366,20 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -268,12 +419,20 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -313,12 +472,20 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -358,12 +525,20 @@ const Shop = () => {
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
                 Starts from Rs: {item.price}
               </p>
-              <button
-                className="mt-6 bg-stone-500 rounded text-white font-medium w-full py-3 text-sm hover:bg-stone-600"
-                onClick={() => handleaddtocart(item)}
-              >
-                Add To Cart
-              </button>
+              <div className="flex flex-row justify-between">
+                <button
+                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart color={"white"} className="mx-auto" />
+                </button>
+              </div>
             </div>
           ))}
         </div>

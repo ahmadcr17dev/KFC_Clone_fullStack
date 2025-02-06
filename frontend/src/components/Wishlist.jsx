@@ -3,18 +3,13 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { Bars } from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
-import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
-import {
-  deletefromcart,
-  increment,
-  decrement,
-  clearcart,
-} from "../redux/cartslice";
+import { FaTrash } from "react-icons/fa";
+import { deletefromwishlist, clearwishlist } from "../redux/wishslice";
 import toast from "react-hot-toast";
 
-const Cart = () => {
+const Wishlist = () => {
   const [loading, setloading] = useState(true);
-  const cartitems = useSelector((state) => state.cart.items);
+  const wishitems = useSelector((state) => state.wish.items);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,15 +19,15 @@ const Cart = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleremovefromcart = (name) => {
-    dispatch(deletefromcart(name));
-    toast.success(`${name.name} is removed from the cart`);
+  const handleremovefromwishlist = (name) => {
+    dispatch(deletefromwishlist(name));
+    toast.success(`${name.name} is removed from wishlist`);
   };
 
-  const handleclearcart = () => {
-    dispatch(clearcart());
-    toast.success("Cart has been cleared");
-  }
+  const handleclearwishlist = () => {
+    dispatch(clearwishlist());
+    toast.success("Wishlist has been cleared");
+  };
 
   return (
     <>
@@ -53,12 +48,12 @@ const Cart = () => {
           <section className="bg-stone-900 font-poppins">
             <Navbar />
             <h1 className="text-white text-3xl font-semibold mt-8 ml-8">
-              Cart
+              Wishlist
             </h1>
-            {cartitems.length > 0 ? (
+            {wishitems.length > 0 ? (
               <>
                 <div className={"mx-auto mt-6 text-white"}>
-                  {cartitems.map((item) => {
+                  {wishitems.map((item) => {
                     return (
                       <div
                         key={item.id}
@@ -77,40 +72,11 @@ const Cart = () => {
                             Rs: {item.price}
                           </p>
                         </div>
-                        <div className="mr-16">
-                          <p>Rs: {item.price * item.quantity}</p>
-                        </div>
-                        <div className="flex flex-row justify-between mr-10">
-                          <button
-                            className="bg-red-500 hover:bg-red-700 p-1 rounded mr-2"
-                            onClick={() => dispatch(increment(item.id))}
-                            disabled={item.quantity >= item.stock_status}
-                          >
-                            <FaPlus size={16} color={"white"} />
-                          </button>
-                          <input
-                            type="number"
-                            readOnly
-                            defaultValue={0}
-                            className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                            value={item.quantity}
-                          />
-                          <button
-                            className="bg-red-500 hover:bg-red-700 p-1 rounded ml-2"
-                            onClick={() => dispatch(decrement(item.id))}
-                            disabled={item.quantity < 1}
-                          >
-                            <FaMinus size={16} color={"white"} />
-                          </button>
-                        </div>
                         <button className="text-red-500 hover:text-red-700">
                           <FaTrash
                             size={16}
-                            onClick={() => handleremovefromcart(item)}
+                            onClick={() => handleremovefromwishlist(item)}
                           />
-                        </button>
-                        <button className="text-white bg-red-500 hover:bg-red-600 sm-medium text-sm px-8 py-2 rounded ml-8">
-                          Continue
                         </button>
                       </div>
                     );
@@ -118,14 +84,14 @@ const Cart = () => {
                 </div>
                 <button
                   className="bg-red-500 hover:bg-red-600 rounded text-white px-8 py-2 mt-4 ml-6 text-sm"
-                  onClick={() => handleclearcart()}
+                  onClick={() => handleclearwishlist()}
                 >
                   Clear Cart
                 </button>
               </>
             ) : (
               <h3 className="text-white font-medium text-1xl text-center">
-                The Cart is Empty!
+                WishList is Empty
               </h3>
             )}
             <Footer />
@@ -136,4 +102,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Wishlist;

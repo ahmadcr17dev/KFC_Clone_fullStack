@@ -6,7 +6,7 @@ import { HiBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Stylednavbar = styled.nav`
   #logo {
@@ -24,6 +24,28 @@ const Stylednavbar = styled.nav`
       position: absolute;
       top: 1.4rem;
       right: 3.3rem;
+      z-index: 0;
+      background-color: red;
+      color: white;
+    }
+  }
+  #cart {
+    /* margin: 1rem 0rem 0rem 0rem; */
+    span {
+      position: absolute;
+      top: 1.4rem;
+      right: 3.3rem;
+      z-index: 0;
+      background-color: red;
+      color: white;
+    }
+  }
+  #wish {
+    /* margin: 1rem 0rem 0rem 0rem; */
+    span {
+      position: absolute;
+      top: 1.4rem;
+      right: 5.6rem;
       z-index: 0;
       background-color: red;
       color: white;
@@ -62,6 +84,7 @@ const Navbar = () => {
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
   const cartcount = useSelector((state) => state.cart.items.length);
+  const wishcount = useSelector((state) => state.wish.items.length);
 
   const logout = () => {
     localStorage.clear("user");
@@ -155,15 +178,22 @@ const Navbar = () => {
 
           {/* Wishlist & Cart (For Larger Screens) */}
           <div className="icons hidden md:flex items-center gap-4 ml-6">
-            <a href="#" className="text-xl">
-              <FiHeart color={"#fff"} />
-            </a>
+            <div id="wish">
+              <NavLink to="/wishlist">
+                {<FiHeart size={"1.2rem"} color={"#fff"} />}
+              </NavLink>
+              {wishcount > 0 && (
+                <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full text-center w-4 h-4">
+                  {wishcount}
+                </span>
+              )}
+            </div>
             <div id="cart">
               <NavLink to="/cart">
                 {<FiShoppingCart size={"1.2rem"} color={"#fff"} />}
               </NavLink>
               {cartcount > 0 && (
-                <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full px-[0.2rem] py-[0.1rem]">
+                <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full text-center w-4 h-4">
                   {cartcount}
                 </span>
               )}
