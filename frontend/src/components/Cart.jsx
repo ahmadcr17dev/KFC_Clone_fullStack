@@ -32,7 +32,7 @@ const Cart = () => {
   const handleclearcart = () => {
     dispatch(clearcart());
     toast.success("Cart has been cleared");
-  }
+  };
 
   return (
     <>
@@ -109,7 +109,10 @@ const Cart = () => {
                             onClick={() => handleremovefromcart(item)}
                           />
                         </button>
-                        <button className="text-white bg-red-500 hover:bg-red-600 sm-medium text-sm px-8 py-2 rounded ml-8">
+                        <button
+                          className="text-white bg-red-500 hover:bg-red-600 sm-medium text-sm px-8 py-2 rounded ml-8"
+                          disabled={item.quantity <= 0}
+                        >
                           Continue
                         </button>
                       </div>

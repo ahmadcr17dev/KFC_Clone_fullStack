@@ -11,7 +11,14 @@ const AddProducts = () => {
   const [productdiscount, setproductdiscount] = useState("");
   const [productimage, setproductimage] = useState(null);
   const [productdescription, setproductdescription] = useState("");
-  const [imagePreview, setImagePreview] = useState(null); // New state for image preview
+  const [imagePreview, setImagePreview] = useState(null);
+  const [small, setsmall] = useState(false);
+  const [medium, setmedium] = useState(false);
+  const [large, setlarge] = useState(false);
+  const [smallprice, setsmallprice] = useState("");
+  const [mediumprice, setmediumprice] = useState("");
+  const [largeprice, setlargeprice] = useState("");
+
   const upload_product_key = import.meta.env.VITE_UPLOAD_PRODUCTS_KEY;
 
   const handleSubmit = async (e) => {
@@ -25,15 +32,15 @@ const AddProducts = () => {
     formdata.append("productstock", productstock);
     formdata.append("productdiscount", productdiscount);
     formdata.append("productimage", productimage);
+    formdata.append("smallprice", smallprice);
+    formdata.append("mediumprice", mediumprice);
+    formdata.append("largeprice", largeprice);
 
     try {
-      const response = await axios.post(
-        upload_product_key,
-        formdata,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+      const response = await axios.post(upload_product_key, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      // Display the toast message from the backend
       if (response.data.status === "success") {
         toast.success(response.data.message);
       } else {
@@ -45,11 +52,10 @@ const AddProducts = () => {
     }
   };
 
-  // Handle file change and preview the image
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setproductimage(file);
-    setImagePreview(URL.createObjectURL(file)); // Set the preview URL
+    setImagePreview(URL.createObjectURL(file));
   };
 
   return (
@@ -104,7 +110,9 @@ const AddProducts = () => {
               onChange={(e) => setproductcategory(e.target.value)}
               className="text-sm bg-stone-700 text-stone-100 mt-4 h-10 p-1 ml-4 rounded focus:outline-0"
             >
-              <option value="" disabled>Select Category</option>
+              <option value="" disabled>
+                Select Category
+              </option>
               <option value="pizza">Pizza</option>
               <option value="burger">Burger</option>
               <option value="fries">Fries</option>
@@ -132,6 +140,69 @@ const AddProducts = () => {
               onChange={(e) => setproductdiscount(e.target.value)}
               className="w-[250px] h-10 px-2 ml-4 mt-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
             />
+          </div>
+        </div>
+
+        <div className="mt-4 text-sm text-stone-100 py-1">
+          <label className="text-stone-100">Select Sizes:</label>
+          <div className="flex flex-row items-center space-x-4 mt-2">
+            <label>
+              <input
+                type="checkbox"
+                value={small}
+                onChange={() => setsmall(!small)}
+              />{" "}
+              Small
+            </label>
+            {small && (
+              <input
+                name="smallprice"
+                placeholder="Small Price"
+                required
+                type="text"
+                value={smallprice}
+                onChange={(e) => setsmallprice(e.target.value)}
+                className="w-[10rem] h-5 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+              />
+            )}
+            <label>
+              <input
+                type="checkbox"
+                value={medium}
+                onChange={() => setmedium(!medium)}
+              />{" "}
+              Medium
+            </label>
+            {medium && (
+              <input
+                name="mediumprice"
+                placeholder="Medium Price"
+                required
+                type="text"
+                value={mediumprice}
+                onChange={(e) => setmediumprice(e.target.value)}
+                className="w-[10rem] h-5 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+              />
+            )}
+            <label>
+              <input
+                type="checkbox"
+                value={large}
+                onChange={() => setlarge(!large)}
+              />{" "}
+              Large
+            </label>
+            {large && (
+              <input
+                name="largeprice"
+                placeholder="Large Price"
+                required
+                type="text"
+                value={largeprice}
+                onChange={(e) => setlargeprice(e.target.value)}
+                className="w-[10rem] h-5 ml-4 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
+              />
+            )}
           </div>
         </div>
 

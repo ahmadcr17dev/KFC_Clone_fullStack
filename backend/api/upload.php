@@ -35,6 +35,11 @@ if ($method === "POST") {
     $productstock = mysqli_real_escape_string($db_conn, $_POST['productstock']);
     $productdiscount = mysqli_real_escape_string($db_conn, $_POST['productdiscount']);
 
+    // Get size prices if they exist
+    $small_price = isset($_POST['smallprice']) ? mysqli_real_escape_string($db_conn, $_POST['smallprice']) : NULL;
+    $medium_price = isset($_POST['mediumprice']) ? mysqli_real_escape_string($db_conn, $_POST['mediumprice']) : NULL;
+    $large_price = isset($_POST['largeprice']) ? mysqli_real_escape_string($db_conn, $_POST['largeprice']) : NULL;
+
     // Check if product ID already exists
     $checkQuery = "SELECT id FROM products WHERE id = '$productid'";
     $checkResult = mysqli_query($db_conn, $checkQuery);
@@ -48,8 +53,11 @@ if ($method === "POST") {
     $imageBinary = addslashes(file_get_contents($imageFile)); // 🔹 Use addslashes() for binary data
 
     // Insert into database
-    $query = "INSERT INTO products (id, name, price, description, category, stock_status, discount, image) 
-              VALUES ('$productid', '$productname', '$productprice', '$productdescription', '$productcategory', '$productstock', '$productdiscount', '$imageBinary')";
+    $query = "INSERT INTO products (id, name, price, description, category, stock_status, discount, image, small_price, medium_price, large_price) 
+              VALUES ('$productid', '$productname', '$productprice', '$productdescription', '$productcategory', '$productstock', '$productdiscount', '$imageBinary', 
+              " . ($small_price !== NULL ? "'$small_price'" : "NULL") . ", 
+              " . ($medium_price !== NULL ? "'$medium_price'" : "NULL") . ", 
+              " . ($large_price !== NULL ? "'$large_price'" : "NULL") . ")";
 
     if (mysqli_query($db_conn, $query)) {
         echo json_encode(["status" => "success", "message" => "Product Inserted Successfully"]);
