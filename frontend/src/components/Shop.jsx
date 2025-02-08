@@ -50,25 +50,42 @@ const Shop = () => {
   const dispatch = useDispatch();
   const cartitems = useSelector((state) => state.cart);
   const wishitems = useSelector((state) => state.wish);
-  const productitems = useSelector((state) => state.product);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setquantity] = useState(0);
+  const [radio, setradio] = useState("");
+  const [cheese1, setcheese] = useState(false);
+  const [chicken1, setchicken] = useState(false);
+
+  const handlecheesecheck = () => {
+    setcheese((prevChecked) => !prevChecked);
+  };
+
+  const handlechickencheck = () => {
+    setchicken((prevChecked) => !prevChecked);
+  };
+
+  const handlechangeradio = (event) => {
+    setradio(event.target.value);
+  };
 
   const increment = () => {
-    setquantity((prevquantity) => prevquantity + 1);
+    setquantity((prev) => prev + 1);
   };
 
   const decrement = () => {
-    setquantity((prevquantity) => (prevquantity > 1 ? prevquantity - 1 : 0));
+    setquantity((prev) => (prev > 1 ? prev - 1 : 0));
   };
 
   const openPopup = (product) => {
     setSelectedProduct(product);
+    setquantity(0);
+    setcheese(false);
+    setchicken(false);
+    setradio("");
   };
 
   const closePopup = () => {
     setSelectedProduct(null);
-    setCustomizations({ size: "", flavors: "" });
   };
 
   useEffect(() => {
@@ -81,7 +98,7 @@ const Shop = () => {
       .catch((error) => console.error("Fetch error:", error));
   }, []);
 
-  // 🔥 Filter products by category
+  // Filter products by category
   const getProductsByCategory = (category) => {
     return pizzaitems.filter(
       (product) => product.category.toLowerCase() === category.toLowerCase()
@@ -154,12 +171,13 @@ const Shop = () => {
           {getProductsByCategory("pizza").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
@@ -208,12 +226,13 @@ const Shop = () => {
           {getProductsByCategory("burger").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold mt-4 pb-4">
                 {item.name}
@@ -265,12 +284,13 @@ const Shop = () => {
           {getProductsByCategory("fries").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
@@ -319,12 +339,13 @@ const Shop = () => {
           {getProductsByCategory("chicken").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
@@ -373,12 +394,13 @@ const Shop = () => {
           {getProductsByCategory("drinks").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
@@ -427,12 +449,13 @@ const Shop = () => {
           {getProductsByCategory("family").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
+              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
+                className="hover:cursor-pointer"
               />
               <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
                 {item.name}
@@ -468,15 +491,15 @@ const Shop = () => {
       {/* Pop-up Window */}
       {selectedProduct && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center font-poppins"
+          className="fixed inset-0 bg-stone-700 bg-opacity-50 flex justify-center items-center font-poppins"
           onClick={closePopup}
         >
           <div
-            className="bg-white py-8 px-12 rounded-lg shadow-lg w-full mx-[170px] relative h-fit"
+            className="bg-stone-800 py-8 px-12 rounded-lg shadow-lg w-full mx-[170px] relative h-fit text-white"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
             <button
-              className="absolute top-2 right-2 text-white hover:bg-red-800 bg-red-500 w-8 h-8 rounded-full"
+              className="absolute top-4 right-4 text-white hover:bg-red-800 bg-red-500 w-8 h-8 rounded-full"
               onClick={closePopup}
             >
               ✖
@@ -485,15 +508,13 @@ const Shop = () => {
               <img
                 src={`data:image/jpeg;base64,${selectedProduct.image}`}
                 alt={selectedProduct.name}
-                className="w-[400px] h-[400px] object-cover rounded-md px-10"
+                className="w-[400px] h-[400px] object-full rounded-full px-10"
               />
               <div className="w-full">
                 <h2 className="text-2xl font-semibold mt-2">
                   {selectedProduct.name}
                 </h2>
-                <p className="text-stone-900 font-medium mt-4">
-                  Rs: {selectedProduct.price}
-                </p>
+                <p className="font-medium mt-4">Rs: {selectedProduct.price}</p>
                 {(selectedProduct.small_price > 0 ||
                   selectedProduct.medium_price > 0 ||
                   selectedProduct.large_price > 0) &&
@@ -502,38 +523,65 @@ const Shop = () => {
                       <div className="flex flex-col mt-10">
                         <div className="flex flex-row justify-between py-1">
                           <label>
-                            <input type="radio" name="size" /> Small 7
+                            <input
+                              type="radio"
+                              name="size"
+                              value="small"
+                              onChange={handlechangeradio}
+                              checked={radio === "small"}
+                            />{" "}
+                            Small 7
                           </label>
-                          <p className="text-stone-700 font-medium">
+                          <p className="text-stone-200 font-medium">
                             Rs: {selectedProduct.small_price}
                           </p>
                         </div>
                         <hr className="py-0" />
                         <div className="flex flex-row justify-between py-3">
                           <label>
-                            <input type="radio" name="size" /> Medium 10
+                            <input
+                              type="radio"
+                              name="size"
+                              value="medium"
+                              onChange={handlechangeradio}
+                              checked={radio === "medium"}
+                            />{" "}
+                            Medium 10
                           </label>
-                          <p className="text-stone-700 font-medium">
+                          <p className="text-stone-200 font-medium">
                             Rs: {selectedProduct.medium_price}
                           </p>
                         </div>
                         <hr />
                         <div className="flex flex-row justify-between py-3">
                           <label>
-                            <input type="radio" name="size" /> Large 13
+                            <input
+                              type="radio"
+                              name="size"
+                              value="large"
+                              onChange={handlechangeradio}
+                              checked={radio === "large"}
+                            />{" "}
+                            Large 13
                           </label>
-                          <p className="text-stone-700 font-medium">
+                          <p className="text-stone-200 font-medium">
                             Rs: {selectedProduct.large_price}
                           </p>
                         </div>
                       </div>
                       <div>
-                        <p className="text-black text-[1rem] font-semibold mt-8">
+                        <p className="text-[1rem] font-semibold mt-8">
                           Choose Small Toppings
                         </p>
                         <div className="flex flex-row justify-between mt-6">
                           <label>
-                            <input type="checkbox" name="toppings" /> Chicken
+                            <input
+                              type="checkbox"
+                              name="toppings"
+                              onChange={handlechickencheck}
+                              checked={chicken1}
+                            />{" "}
+                            Chicken
                           </label>
                           <img
                             src={chicken}
@@ -545,7 +593,13 @@ const Shop = () => {
                         <hr />
                         <div className="flex flex-row justify-between mt-6">
                           <label>
-                            <input type="checkbox" name="toppings" /> Cheese
+                            <input
+                              type="checkbox"
+                              name="toppings"
+                              onChange={handlecheesecheck}
+                              checked={cheese1}
+                            />{" "}
+                            Cheese
                           </label>
                           <img
                             src={cheese}
@@ -554,6 +608,25 @@ const Shop = () => {
                           />
                           <p>Rs: 100</p>
                         </div>
+                      </div>
+                      <div className="flex flex-row justify-between">
+                        <p className="text-stone-100 font-medium">SubTotal: </p>
+                        <p>
+                          Rs:{" "}
+                          {radio === "small"
+                            ? quantity * selectedProduct.small_price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : radio === "medium"
+                            ? quantity * selectedProduct.medium_price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : radio === "large"
+                            ? quantity * selectedProduct.large_price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : 0}
+                        </p>
                       </div>
                       <div className="flex flex-row mt-6">
                         <div className="flex flex-row justify-between">
@@ -580,8 +653,8 @@ const Shop = () => {
                           </button>
                         </div>
                         <div>
-                          <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                            Add To Cart
+                          <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                            Proceed to Checkout
                           </button>
                         </div>
                       </div>
@@ -593,37 +666,64 @@ const Shop = () => {
                   selectedProduct.category === "pizza" && (
                     <>
                       <div className="flex flex-col mt-10">
-                        <p className="text-black text-[1rem] font-semibold mt-[-19px] mb-4">
+                        <p className="text-[1rem] font-semibold mt-[-19px] mb-4">
                           Choose Your Flavour
                         </p>
                         <div className="flex flex-row justify-between py-1">
                           <label>
-                            <input type="radio" name="size" required /> Chicken
-                            Tikka
+                            <input
+                              type="radio"
+                              name="size"
+                              required
+                              value="tikka"
+                              onChange={handlechangeradio}
+                              checked={radio === "tikka"}
+                            />{" "}
+                            Chicken Tikka
                           </label>
                         </div>
                         <hr className="py-0" />
                         <div className="flex flex-row justify-between py-3">
                           <label>
-                            <input type="radio" name="size" required /> Chicken
-                            Fajita
+                            <input
+                              type="radio"
+                              name="size"
+                              required
+                              value="fajita"
+                              onChange={handlechangeradio}
+                              checked={radio === "fajita"}
+                            />{" "}
+                            Chicken Fajita
                           </label>
                         </div>
                         <hr />
                         <div className="flex flex-row justify-between py-3">
                           <label>
-                            <input type="radio" name="size" required /> Hot &
-                            Spicy
+                            <input
+                              type="radio"
+                              name="size"
+                              required
+                              value="spicy"
+                              onChange={handlechangeradio}
+                              checked={radio === "spicy"}
+                            />{" "}
+                            Hot & Spicy
                           </label>
                         </div>
                       </div>
                       <div>
-                        <p className="text-black text-[1rem] font-semibold mt-8">
+                        <p className="text-[1rem] font-semibold mt-8">
                           Choose Small Toppings
                         </p>
                         <div className="flex flex-row justify-between mt-6">
                           <label>
-                            <input type="checkbox" name="toppings" /> Chicken
+                            <input
+                              type="checkbox"
+                              name="toppings"
+                              onChange={handlechickencheck}
+                              checked={chicken1}
+                            />{" "}
+                            Chicken
                           </label>
                           <img
                             src={chicken}
@@ -635,7 +735,13 @@ const Shop = () => {
                         <hr />
                         <div className="flex flex-row justify-between mt-6">
                           <label>
-                            <input type="checkbox" name="toppings" /> Cheese
+                            <input
+                              type="checkbox"
+                              name="toppings"
+                              onChange={handlecheesecheck}
+                              checked={cheese1}
+                            />{" "}
+                            Cheese
                           </label>
                           <img
                             src={cheese}
@@ -645,9 +751,32 @@ const Shop = () => {
                           <p>Rs: 100</p>
                         </div>
                       </div>
+                      <div className="flex flex-row justify-between">
+                        <p className="font-medium">SubTotal: </p>
+                        <p>
+                          Rs:{" "}
+                          {radio === "tikka"
+                            ? quantity * selectedProduct.price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : radio === "fajita"
+                            ? quantity * selectedProduct.price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : radio === "spicy"
+                            ? quantity * selectedProduct.price +
+                              (cheese1 ? quantity * 1 * 100 : 0) +
+                              (chicken1 ? quantity * 1 * 100 : 0)
+                            : 0}
+                        </p>
+                      </div>
                       <div className="flex flex-row mt-6">
                         <div className="flex flex-row justify-between">
-                          <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                          <button
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                            onClick={increment}
+                            disabled={quantity >= selectedProduct.stock_status}
+                          >
                             <FaPlus size={14} color={"white"} />
                           </button>
                           <input
@@ -655,15 +784,19 @@ const Shop = () => {
                             readOnly
                             defaultValue={0}
                             className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                            // value={item.quantity}
+                            value={quantity}
                           />
-                          <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                          <button
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                            onClick={decrement}
+                            disabled={quantity <= 0}
+                          >
                             <FaMinus size={14} color={"white"} />
                           </button>
                         </div>
                         <div>
-                          <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                            Add To Cart
+                          <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                            Proceed To Checkout
                           </button>
                         </div>
                       </div>
@@ -673,20 +806,39 @@ const Shop = () => {
                 {selectedProduct.category === "burger" && (
                   <>
                     <div>
-                      <p className="text-black text-[1rem] font-semibold mt-8">
+                      <p className="text-[1rem] font-semibold mt-8">
                         Extra Ads On
                       </p>
                       <div className="flex flex-row justify-between mt-6">
                         <label>
-                          <input type="checkbox" name="toppings" /> Cheese Slice
+                          <input
+                            type="checkbox"
+                            name="toppings"
+                            onChange={handlecheesecheck}
+                            checked={cheese1}
+                          />{" "}
+                          Cheese Slice
                         </label>
                         <img src={cheese} alt="cheese" className="mt-[-11px]" />
                         <p>Rs: 50</p>
                       </div>
                     </div>
-                    <div className="flex flex-row mt-[9rem] ">
+                    <div className="flex flex-row justify-between mt-[6rem]">
+                      <p className="font-medium">SubTotal: </p>
+                      <p>
+                        Rs:{" "}
+                        {cheese1
+                          ? quantity * selectedProduct.price + quantity * 1 * 50
+                          : quantity * selectedProduct.price}
+                      </p>
+                    </div>
+                    <div className="flex flex-row mt-4">
                       <div className="flex flex-row justify-between">
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          onClick={increment}
+                          disabled={quantity >= selectedProduct.stock_status}
+                        >
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
@@ -694,15 +846,19 @@ const Shop = () => {
                           readOnly
                           defaultValue={0}
                           className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                          // value={item.quantity}
+                          value={quantity}
                         />
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          onClick={decrement}
+                          disabled={quantity <= 0}
+                        >
                           <FaMinus size={14} color={"white"} />
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                          Add To Cart
+                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          Proceed To Checkout
                         </button>
                       </div>
                     </div>
@@ -711,9 +867,17 @@ const Shop = () => {
 
                 {selectedProduct.category === "fries" && (
                   <>
-                    <div className="flex flex-row mt-[17rem] ">
+                    <div className="flex flex-row justify-between mt-[15rem]">
+                      <p className="font-medium">SubTotal: </p>
+                      <p>Rs: {quantity * selectedProduct.price}</p>
+                    </div>
+                    <div className="flex flex-row mt-4">
                       <div className="flex flex-row justify-between">
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          onClick={increment}
+                          disabled={quantity >= selectedProduct.stock_status}
+                        >
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
@@ -721,15 +885,19 @@ const Shop = () => {
                           readOnly
                           defaultValue={0}
                           className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                          // value={item.quantity}
+                          value={quantity}
                         />
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          onClick={decrement}
+                          disabled={quantity <= 0}
+                        >
                           <FaMinus size={14} color={"white"} />
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                          Add To Cart
+                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          Proceed To Checkout
                         </button>
                       </div>
                     </div>
@@ -738,9 +906,17 @@ const Shop = () => {
 
                 {selectedProduct.category === "chicken" && (
                   <>
-                    <div className="flex flex-row mt-[17rem] ">
+                    <div className="flex flex-row justify-between mt-[15rem]">
+                      <p className="font-medium">SubTotal: </p>
+                      <p>Rs: {quantity * selectedProduct.price}</p>
+                    </div>
+                    <div className="flex flex-row mt-4 ">
                       <div className="flex flex-row justify-between">
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          onClick={increment}
+                          disabled={quantity >= selectedProduct.stock_status}
+                        >
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
@@ -748,15 +924,19 @@ const Shop = () => {
                           readOnly
                           defaultValue={0}
                           className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                          // value={item.quantity}
+                          value={quantity}
                         />
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          onClick={decrement}
+                          disabled={quantity <= 0}
+                        >
                           <FaMinus size={14} color={"white"} />
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                          Add To Cart
+                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          Proceed To Checkout
                         </button>
                       </div>
                     </div>
@@ -765,9 +945,17 @@ const Shop = () => {
 
                 {selectedProduct.category === "drinks" && (
                   <>
-                    <div className="flex flex-row mt-[17rem] ">
+                    <div className="flex flex-row justify-between mt-[15rem]">
+                      <p className="font-medium">SubTotal: </p>
+                      <p>Rs: {quantity * selectedProduct.price}</p>
+                    </div>
+                    <div className="flex flex-row mt-4">
                       <div className="flex flex-row justify-between">
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          onClick={increment}
+                          disabled={quantity >= selectedProduct.stock_status}
+                        >
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
@@ -775,15 +963,19 @@ const Shop = () => {
                           readOnly
                           defaultValue={0}
                           className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                          // value={item.quantity}
+                          value={quantity}
                         />
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          onClick={decrement}
+                          disabled={quantity <= 0}
+                        >
                           <FaMinus size={14} color={"white"} />
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                          Add To Cart
+                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          Proceed To Checkout
                         </button>
                       </div>
                     </div>
@@ -793,20 +985,39 @@ const Shop = () => {
                 {selectedProduct.category === "family" && (
                   <>
                     <div>
-                      <p className="text-black text-[1rem] font-semibold mt-8">
+                      <p className="text-[1rem] font-semibold mt-8">
                         Extra Ads On
                       </p>
                       <div className="flex flex-row justify-between mt-6">
                         <label>
-                          <input type="checkbox" name="toppings" /> Cheese Slice
+                          <input
+                            type="checkbox"
+                            name="toppings"
+                            onChange={handlecheesecheck}
+                            checked={cheese1}
+                          />{" "}
+                          Cheese Slice
                         </label>
                         <img src={cheese} alt="cheese" className="mt-[-11px]" />
                         <p>Rs: 50</p>
                       </div>
                     </div>
-                    <div className="flex flex-row mt-[10rem] ">
+                    <div className="flex flex-row justify-between mt-[6rem]">
+                      <p className="font-medium">SubTotal: </p>
+                      <p>
+                        Rs:{" "}
+                        {cheese1
+                          ? quantity * selectedProduct.price + quantity * 1 * 50
+                          : quantity * selectedProduct.price}
+                      </p>
+                    </div>
+                    <div className="flex flex-row mt-4 ">
                       <div className="flex flex-row justify-between">
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          onClick={increment}
+                          disabled={quantity >= selectedProduct.stock_status}
+                        >
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
@@ -814,9 +1025,13 @@ const Shop = () => {
                           readOnly
                           defaultValue={0}
                           className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                          // value={item.quantity}
+                          value={quantity}
                         />
-                        <button className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          onClick={decrement}
+                          disabled={quantity <= 0}
+                        >
                           <FaMinus size={14} color={"white"} />
                         </button>
                       </div>
