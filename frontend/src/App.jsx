@@ -14,6 +14,7 @@ import AllProducts from "./components/AllProducts";
 import UpdateProduct from "./components/UpdateProduct";
 import Cart from './components/Cart';
 import Wishlist from './components/Wishlist';
+import Proceed from './components/Proceed';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="shop" element={<ShopPage />} />
         <Route path="cart" element={<Cart />} />
         <Route path="wishlist" element={<Wishlist/>} />
+        <Route path="proceed" element={<Proceed/>} />
         {/* <Route
           path="/admin"
           element={

@@ -15,9 +15,9 @@ import toast from "react-hot-toast";
 import { FiHeart } from "react-icons/fi";
 import { addtowishlist } from "../redux/wishslice";
 import chicken from "../images/chicken.webp";
-import cheese from "../images/cheese.webp";
+import cheese from "../images/cheese.png";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { productincrement } from "../redux/productslice";
+import { useNavigate } from "react-router-dom";
 
 const StyledSection = styled.section`
   .image-box img {
@@ -55,6 +55,7 @@ const Shop = () => {
   const [radio, setradio] = useState("");
   const [cheese1, setcheese] = useState(false);
   const [chicken1, setchicken] = useState(false);
+  const navigate = useNavigate();
 
   const handlecheesecheck = () => {
     setcheese((prevChecked) => !prevChecked);
@@ -127,6 +128,61 @@ const Shop = () => {
     } else {
       toast.error(`${item.name} is already in wishlist`);
     }
+  };
+
+  const handleproceed = (selectedProduct) => {
+    const updatedProduct = {
+      ...selectedProduct,
+      selectedSize: radio, // Selected size (small, medium, large)
+      quantity: quantity, // Updated quantity
+      cheese: cheese1, // Selected cheese topping
+      chicken: chicken1, // Selected chicken topping
+      subtotal:
+        (radio === "small"
+          ? quantity * selectedProduct.small_price
+          : radio === "medium"
+          ? quantity * selectedProduct.medium_price
+          : radio === "large"
+          ? quantity * selectedProduct.large_price
+          : radio === "tikka"
+          ? quantity * selectedProduct.price
+          : radio === "fajita"
+          ? quantity * selectedProduct.price
+          : radio === "spicy"
+          ? quantity * selectedProduct.price
+          : selectedProduct.category === "burger"
+          ? quantity * selectedProduct.price
+          : selectedProduct.category === "fries"
+          ? quantity * selectedProduct.price
+          : selectedProduct.category === "chicken"
+          ? quantity * selectedProduct.price
+          : selectedProduct.category === "drinks"
+          ? quantity * selectedProduct.price
+          : selectedProduct.category === "family"
+          ? quantity * selectedProduct.price
+          : 0) +
+        (cheese1 && selectedProduct.category === "pizza"
+          ? quantity * 100
+          : cheese1
+          ? quantity * 50
+          : cheese1 && selectedProduct.category === "family"
+          ? quantity * 100
+          : 0) +
+        (chicken1 && selectedProduct.category === "pizza"
+          ? quantity * 100
+          : chicken1 && selectedProduct.category === "family"
+          ? quantity * 100
+          : 0),
+    };
+
+    // Save to Redux (dispatch action)
+    dispatch({ type: "UPDATE_PROCEED_PRODUCT", payload: updatedProduct });
+
+    // Store in LocalStorage
+    localStorage.setItem("products", JSON.stringify(updatedProduct));
+
+    // Redirect to Proceed Page
+    navigate("/proceed");
   };
 
   return (
@@ -247,7 +303,7 @@ const Shop = () => {
                 className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+                Rs: {item.price}
               </p>
               <div className="flex flex-row justify-between">
                 <button
@@ -302,7 +358,7 @@ const Shop = () => {
                 className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+                Rs: {item.price}
               </p>
               <div className="flex flex-row justify-between">
                 <button
@@ -357,7 +413,7 @@ const Shop = () => {
                 className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+                Rs: {item.price}
               </p>
               <div className="flex flex-row justify-between">
                 <button
@@ -412,7 +468,7 @@ const Shop = () => {
                 className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+                Rs: {item.price}
               </p>
               <div className="flex flex-row justify-between">
                 <button
@@ -467,7 +523,7 @@ const Shop = () => {
                 className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
               ></p>
               <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+                Rs: {item.price}
               </p>
               <div className="flex flex-row justify-between">
                 <button
@@ -508,7 +564,7 @@ const Shop = () => {
               <img
                 src={`data:image/jpeg;base64,${selectedProduct.image}`}
                 alt={selectedProduct.name}
-                className="w-[400px] h-[400px] object-full rounded-full px-10"
+                className="w-[400px] h-[400px] rounded-full px-10"
               />
               <div className="w-full">
                 <h2 className="text-2xl font-semibold mt-2">
@@ -653,7 +709,10 @@ const Shop = () => {
                           </button>
                         </div>
                         <div>
-                          <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          <button
+                            className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                            onClick={() => handleproceed(selectedProduct)}
+                          >
                             Proceed to Checkout
                           </button>
                         </div>
@@ -795,7 +854,10 @@ const Shop = () => {
                           </button>
                         </div>
                         <div>
-                          <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                          <button
+                            className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                            onClick={() => handleproceed(selectedProduct)}
+                          >
                             Proceed To Checkout
                           </button>
                         </div>
@@ -857,7 +919,10 @@ const Shop = () => {
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                        <button
+                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          onClick={() => handleproceed(selectedProduct)}
+                        >
                           Proceed To Checkout
                         </button>
                       </div>
@@ -896,7 +961,10 @@ const Shop = () => {
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                        <button
+                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          onClick={() => handleproceed(selectedProduct)}
+                        >
                           Proceed To Checkout
                         </button>
                       </div>
@@ -935,7 +1003,10 @@ const Shop = () => {
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                        <button
+                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          onClick={() => handleproceed(selectedProduct)}
+                        >
                           Proceed To Checkout
                         </button>
                       </div>
@@ -974,7 +1045,10 @@ const Shop = () => {
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1">
+                        <button
+                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          onClick={() => handleproceed(selectedProduct)}
+                        >
                           Proceed To Checkout
                         </button>
                       </div>
@@ -1036,8 +1110,11 @@ const Shop = () => {
                         </button>
                       </div>
                       <div>
-                        <button className="bg-red-500 rounded py-2 px-[9.3rem] text-white text-sm mx-1">
-                          Add To Cart
+                        <button
+                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          onClick={() => handleproceed(selectedProduct)}
+                        >
+                          Proceed To Checkout
                         </button>
                       </div>
                     </div>

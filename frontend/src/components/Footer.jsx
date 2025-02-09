@@ -9,7 +9,7 @@ import { IoLogoGooglePlaystore } from "react-icons/io5";
 const Footer = () => {
   return (
     <>
-      <section className="bg-stone-700 w-full mt-16 py-16 px-18">
+      <section className="bg-stone-700 w-full mt-0 py-16 px-18">
         <div className="flex flex-row justify-center mx-auto">
           <div>
             <img src={logo} alt="site logo" />
