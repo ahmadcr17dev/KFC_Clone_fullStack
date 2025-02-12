@@ -1,8 +1,6 @@
 import React from "react";
 import { AiOutlineProduct } from "react-icons/ai";
 import { PiCirclesThreePlus } from "react-icons/pi";
-import { GoPencil } from "react-icons/go";
-import { HiOutlineTrash } from "react-icons/hi2";
 import { PiUsersThree } from "react-icons/pi";
 import { PiCoins } from "react-icons/pi";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -58,22 +56,6 @@ const AdminSideBar = () => {
           <p className="text-sm ml-2">Add Product</p>
         </NavLink>
         <NavLink
-          to="updateproducts"
-          className={({ isActive }) => {
-            console.log("isActive:", isActive);
-            return `flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded ${
-              isActive ? "bg-black" : "hover:bg-black"
-            }`;
-          }}
-        >
-          <GoPencil color={"white"} size={"1.1rem"} />
-          <p className="text-sm ml-2">Update Product</p>
-        </NavLink>
-        <NavLink className="flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded hover:cursor-pointer hover:bg-black">
-          <HiOutlineTrash color={"white"} size={"1.1rem"} />
-          <p className="text-sm ml-2">Delete Product</p>
-        </NavLink>
-        <NavLink
           to="users"
           className={({ isActive }) => {
             console.log("isActive:", isActive);
@@ -85,9 +67,17 @@ const AdminSideBar = () => {
           <PiUsersThree color={"white"} size={"1.17rem"} />
           <p className="text-sm ml-2">Users</p>
         </NavLink>
-        <NavLink className="flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded hover:cursor-pointer hover:bg-black">
+        <NavLink
+          to="sales"
+          className={({ isActive }) => {
+            console.log("isActive:", isActive);
+            return `flex flex-row text-white py-3 pl-3 pr-5 mb-1 rounded ${
+              isActive ? "bg-black" : "hover:bg-black"
+            }`;
+          }}
+        >
           <PiCoins color={"white"} size={"1.17rem"} />
-          <p className="text-sm ml-2">Cash</p>
+          <p className="text-sm ml-2">Sales</p>
         </NavLink>
         <NavLink
           to="/"

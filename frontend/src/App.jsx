@@ -11,10 +11,10 @@ import ShopPage from "./pages/ShopPage";
 import AdminUsers from "./components/AdminUsers";
 import AddProducts from "./components/AddProducts";
 import AllProducts from "./components/AllProducts";
-import UpdateProduct from "./components/UpdateProduct";
-import Cart from './components/Cart';
-import Wishlist from './components/Wishlist';
-import Proceed from './components/Proceed';
+import Cart from "./components/Cart";
+import Wishlist from "./components/Wishlist";
+import Proceed from "./components/Proceed";
+import Sales from "./components/Sales";
 
 const App = () => {
   return (
@@ -24,16 +24,15 @@ const App = () => {
         <Route path="login" element={<LoginPage />}></Route>
         <Route path="signup" element={<SignupPage />}></Route>
         <Route path="admin" element={<AdminPage />}>
-          <Route index element={<Navigate to="allproducts" replace />} />
           <Route path="allproducts" element={<AllProducts />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="addproducts" element={<AddProducts />} />
-          <Route path="updateproducts" element={<UpdateProduct />} />
+          <Route path="sales" element={<Sales />} />
         </Route>
         <Route path="shop" element={<ShopPage />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="wishlist" element={<Wishlist/>} />
-        <Route path="proceed" element={<Proceed/>} />
+        <Route path="wishlist" element={<Wishlist />} />
+        <Route path="proceed" element={<Proceed />} />
         {/* <Route
           path="/admin"
           element={
@@ -42,6 +41,7 @@ const App = () => {
             </PrivateRoute>
           }
         ></Route> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster />
     </>

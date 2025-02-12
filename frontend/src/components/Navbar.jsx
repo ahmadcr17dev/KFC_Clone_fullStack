@@ -33,8 +33,8 @@ const Stylednavbar = styled.nav`
     /* margin: 1rem 0rem 0rem 0rem; */
     span {
       position: absolute;
-      top: 1.4rem;
-      right: 3.3rem;
+      top: 1.5rem;
+      right: 2.5rem;
       z-index: 0;
       background-color: red;
       color: white;
@@ -44,14 +44,14 @@ const Stylednavbar = styled.nav`
     /* margin: 1rem 0rem 0rem 0rem; */
     span {
       position: absolute;
-      top: 1.4rem;
-      right: 5.6rem;
+      top: 1.5rem;
+      right: 4.7rem;
       z-index: 0;
       background-color: red;
       color: white;
     }
   }
-  @media (max-width: 500px) and (min-width: 0px) {
+  @media (max-width: 450px) and (min-width: 0px) {
     #logo {
       width: 4rem;
     }
@@ -75,6 +75,58 @@ const Stylednavbar = styled.nav`
       ul li {
         padding: 5px 0px 5px 10px;
       }
+    }
+  }
+  @media (max-width: 1500px) and (min-width: 1400px) {
+    #cart {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 1.4rem;
+        right: 5.3rem;
+        z-index: 0;
+        background-color: red;
+        color: white;
+      }
+    }
+    #wish {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 1.4rem;
+        right: 7.6rem;
+        z-index: 0;
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+  @media (max-width: 1030px) and (min-width: 800px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    #logo {
+      width: 5rem;
+    }
+    #cart {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 1.1rem;
+        right: 2rem;
+      }
+    }
+    #wish {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 1.1rem;
+        right: 4rem;
+      }
+    }
+  }
+  @media (max-width: 800px) and (min-width: 451px) {
+    #logo{
+      width: 4rem;
     }
   }
 `;
@@ -108,8 +160,8 @@ const Navbar = () => {
   };
 
   return (
-    <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins sticky top-0">
-      <div className="container mx-auto flex items-center justify-between p-4">
+    <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins">
+      <div className="container mx-auto flex items-center justify-between py-4">
         <div className="flex flex-row justify-between">
           {/* Logo */}
           <div className="flex items-center">

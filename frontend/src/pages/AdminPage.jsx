@@ -31,7 +31,7 @@ const AdminPage = () => {
             <AdminSideBar />
           </div>
           <div className="ml-8">
-            <Outlet /> {/* This will render the nested routes dynamically */}
+            <Outlet />
           </div>
         </section>
       )}

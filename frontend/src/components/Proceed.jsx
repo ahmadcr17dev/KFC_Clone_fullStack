@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Bars } from "react-loader-spinner";
-import { FaCheckCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Proceed = () => {
   // Get product from Redux (if available)
@@ -22,6 +22,7 @@ const Proceed = () => {
     state: "",
     zip: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -78,6 +79,7 @@ const Proceed = () => {
           state: "",
           zip: "",
         });
+        navigate("/");
       } else {
         toast.error(result.message);
       }

@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  GiPizzaSlice,
-  GiHamburger,
-  GiChickenOven,
-  GiDrinkMe,
-} from "react-icons/gi";
-import { HiMiniUsers } from "react-icons/hi2";
-import { GiFrenchFries } from "react-icons/gi";
 import axios from "axios";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,29 +179,6 @@ const Shop = () => {
 
   return (
     <section className="h-full w-full font-poppins bg-stone-800">
-      {/* Category Buttons */}
-      <div className="cat-names py-10 flex flex-row justify-center px-8 sticky top-[4.8rem] bg-stone-800">
-        {[
-          {
-            icon: <GiPizzaSlice size="1.5rem" />,
-            label: "Pizza",
-          },
-          { icon: <GiHamburger size="1.5rem" />, label: "Burger" },
-          { icon: <GiFrenchFries size="1.5rem" />, label: "Fries" },
-          { icon: <GiChickenOven size="1.5rem" />, label: "Chicken" },
-          { icon: <GiDrinkMe size="1.5rem" />, label: "Drinks" },
-          { icon: <HiMiniUsers size="1.5rem" />, label: "Family Deals" },
-        ].map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-row px-8 py-2 text-white bg-red-500 mx-1 rounded cursor-pointer hover:bg-red-700"
-          >
-            {item.icon}
-            <p className="text-md ml-2">{item.label}</p>
-          </div>
-        ))}
-      </div>
-
       {/* Product List */}
       <StyledSection className="mt-12 font-poppins pb-16 px-10">
         <h1 className="title text-4xl text-white font-bold">Pizza Deals</h1>

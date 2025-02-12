@@ -43,6 +43,7 @@ const AddProducts = () => {
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
+        resetForm();
       } else {
         toast.error(response.data.message);
       }
@@ -50,6 +51,15 @@ const AddProducts = () => {
       console.error("Error:", error);
       toast.error("Something went wrong. Please try again.");
     }
+  };
+
+  const resetForm = () => {
+    setsmall(false);
+    setmedium(false);
+    setlarge(false);
+    setsmallprice("");
+    setmediumprice("");
+    setlargeprice("");
   };
 
   const handleImageChange = (e) => {
@@ -66,9 +76,9 @@ const AddProducts = () => {
           <input
             name="productId"
             placeholder="Product ID"
-            required
             type="text"
             value={productid}
+            required
             onChange={(e) => setproductid(e.target.value)}
             className="w-[200px] h-10 px-2 text-sm font-medium text-stone-100 bg-stone-700 border-stone-500 rounded focus:outline-0"
           />

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 // Include database connection
 include('../database/connection.php');
 
-$sql_query = "SELECT id, name, image, price, category, stock_status, discount, date FROM products";
+$sql_query = 'SELECT * FROM sales';
 $result = $conn->query($sql_query);
 
 if (!$result) {
@@ -27,7 +27,6 @@ if (!$result) {
 $data = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $row['image'] = base64_encode($row['image']);
         $data[] = $row;
     }
 }

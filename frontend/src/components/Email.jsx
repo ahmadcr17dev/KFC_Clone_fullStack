@@ -3,6 +3,9 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 
 const Styledsection = styled.section`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   input {
     width: 40rem;
     border: 0px solid black;

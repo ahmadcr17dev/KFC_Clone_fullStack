@@ -28,6 +28,9 @@ const StyledSection = styled.section`
       height: 13rem;
     }
   }
+  @media (max-width: 1030px) and (min-width: 800px) {
+    
+  }
 `;
 
 const HomeItems = () => {
