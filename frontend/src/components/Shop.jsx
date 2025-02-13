@@ -20,20 +20,6 @@ const StyledSection = styled.section`
     margin: auto;
     border-radius: 10px;
   }
-
-  @media (max-width: 464px) {
-    .title {
-      font-size: 1.5rem;
-    }
-    .lefty,
-    .righty {
-      display: none;
-    }
-    .image-box img {
-      width: 15rem;
-      height: 13rem;
-    }
-  }
 `;
 
 const Shop = () => {
@@ -180,54 +166,54 @@ const Shop = () => {
   return (
     <section className="h-full w-full font-poppins bg-stone-800">
       {/* Product List */}
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Pizza Deals</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Pizza Deals
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
           __________
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
           {getProductsByCategory("pizza").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
               />
-              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
                 {item.name}
               </p>
               <p
                 dangerouslySetInnerHTML={{
                   __html: item.description.slice(0, 55),
                 }}
-                className="text-left text-stone-300 text-sm font-medium text-sm mt-4 pb-4"
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Starts from Rs: {item.price}
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
+                Rs: {item.price}
               </p>
-              <div className="flex flex-row justify-between">
+
+              <div className="flex flex-row justify-between items-center mt-4">
                 <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtocart(item)}
                 >
                   Add To Cart
                 </button>
                 <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtowishlist(item)}
                 >
-                  <FiHeart color={"white"} className="mx-auto" />
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
                 </button>
               </div>
             </div>
@@ -235,57 +221,54 @@ const Shop = () => {
         </div>
       </StyledSection>
 
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Burger Deals</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Burger Deals
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
           __________
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
           {getProductsByCategory("burger").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
               />
-              <p className="text-left text-white text-[1.1rem] font-semibold mt-4 pb-4">
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
                 {item.name}
-              </p>
-              <p className="text-left text-white hidden text-[1.1rem] font-semibold mt-4 pb-4">
-                {item.category}
               </p>
               <p
                 dangerouslySetInnerHTML={{
                   __html: item.description.slice(0, 55),
                 }}
-                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
                 Rs: {item.price}
               </p>
-              <div className="flex flex-row justify-between">
+
+              <div className="flex flex-row justify-between items-center mt-4">
                 <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtocart(item)}
                 >
                   Add To Cart
                 </button>
                 <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtowishlist(item)}
                 >
-                  <FiHeart color={"white"} className="mx-auto" />
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
                 </button>
               </div>
             </div>
@@ -293,109 +276,54 @@ const Shop = () => {
         </div>
       </StyledSection>
 
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Fries Deals</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Chicken Deals
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
           __________
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
-          {getProductsByCategory("fries").map((item, index) => (
-            <div
-              key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
-            >
-              <img
-                src={`data:image/jpeg;base64,${item.image}`}
-                alt={item.name}
-                onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
-              />
-              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
-                {item.name}
-              </p>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: item.description.slice(0, 55),
-                }}
-                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
-              ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
-                Rs: {item.price}
-              </p>
-              <div className="flex flex-row justify-between">
-                <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
-                  onClick={() => handleaddtocart(item)}
-                >
-                  Add To Cart
-                </button>
-                <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
-                  onClick={() => handleaddtowishlist(item)}
-                >
-                  <FiHeart color={"white"} className="mx-auto" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </StyledSection>
 
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Chicken Deals</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
-          __________
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
           {getProductsByCategory("chicken").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
               />
-              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
                 {item.name}
               </p>
               <p
                 dangerouslySetInnerHTML={{
                   __html: item.description.slice(0, 55),
                 }}
-                className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
                 Rs: {item.price}
               </p>
-              <div className="flex flex-row justify-between">
+
+              <div className="flex flex-row justify-between items-center mt-4">
                 <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtocart(item)}
                 >
                   Add To Cart
                 </button>
                 <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtowishlist(item)}
                 >
-                  <FiHeart color={"white"} className="mx-auto" />
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
                 </button>
               </div>
             </div>
@@ -403,54 +331,109 @@ const Shop = () => {
         </div>
       </StyledSection>
 
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Drinks</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Fries Deals
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
           __________
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
+          {getProductsByCategory("fries").map((item, index) => (
+            <div
+              key={index}
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
+            >
+              <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+                onClick={() => openPopup(item)}
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
+              />
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
+                {item.name}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: item.description.slice(0, 55),
+                }}
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
+              ></p>
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
+                Rs: {item.price}
+              </p>
+
+              <div className="flex flex-row justify-between items-center mt-4">
+                <button
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
+                  onClick={() => handleaddtocart(item)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
+                  onClick={() => handleaddtowishlist(item)}
+                >
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </StyledSection>
+
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Drinks
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
+          __________
+        </p>
+
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
           {getProductsByCategory("drinks").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
               />
-              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
                 {item.name}
               </p>
               <p
                 dangerouslySetInnerHTML={{
                   __html: item.description.slice(0, 55),
                 }}
-                className="text-left text-stone-300 text-sm font-medium text-1xl mt-4 pb-4"
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
                 Rs: {item.price}
               </p>
-              <div className="flex flex-row justify-between">
+
+              <div className="flex flex-row justify-between items-center mt-4">
                 <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtocart(item)}
                 >
                   Add To Cart
                 </button>
                 <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtowishlist(item)}
                 >
-                  <FiHeart color={"white"} className="mx-auto" />
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
                 </button>
               </div>
             </div>
@@ -458,54 +441,54 @@ const Shop = () => {
         </div>
       </StyledSection>
 
-      <StyledSection className="mt-12 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">Family Deals</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
+      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+        <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
+          Family Deals
+        </h1>
+        <p className="text-red-500 font-bold text-left -mt-2 sm:-mt-3">
           __________
         </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-6 lg:gap-3 md:gap-3 mt-10">
           {getProductsByCategory("family").map((item, index) => (
             <div
               key={index}
-              className="image-box bg-stone-700 mx-1 rounded-lg shadow-md p-4"
+              className="image-box bg-stone-700 rounded-lg shadow-md p-2 xl:p-4 lg:p-4 md:p-4"
             >
               <img
                 src={`data:image/jpeg;base64,${item.image}`}
                 alt={item.name}
                 onClick={() => openPopup(item)}
-                className="hover:cursor-pointer"
+                className="xl:w-full lg:w-full md:w-full h-40 object-cover rounded-md hover:cursor-pointer"
               />
-              <p className="text-left text-white text-[1.1rem] font-semibold text-1xl mt-4 pb-4">
+              <p className="text-white text-[0.8rem] xl:text-[1.3rem] font-semibold mt-4 pb-2 lg:text-[1rem]">
                 {item.name}
               </p>
               <p
                 dangerouslySetInnerHTML={{
                   __html: item.description.slice(0, 55),
                 }}
-                className="text-left text-stone-300 text-sm font-medium mt-4 pb-4"
+                className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
-              <p className="text-left text-white text-sm font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl ">
+              <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">
                 Rs: {item.price}
               </p>
-              <div className="flex flex-row justify-between">
+
+              <div className="flex flex-row justify-between items-center mt-4">
                 <button
-                  className="mt-6 bg-stone-500 rounded text-white font-medium w-fit px-16 h-10 text-sm hover:bg-stone-600"
+                  className="bg-stone-500 rounded text-white font-medium mx-1 w-full py-2 text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtocart(item)}
                 >
                   Add To Cart
                 </button>
                 <button
-                  className="bg-stone-500 rounded-full py-3 hover:bg-stone-600 h-fit w-10 h-10 mt-6"
+                  className="bg-stone-500 rounded-full p-2 xl:p-3 lg:p-2 md:p-2 hover:bg-stone-600 transition-all"
                   onClick={() => handleaddtowishlist(item)}
                 >
-                  <FiHeart color={"white"} className="mx-auto" />
+                  <FiHeart
+                    color={"white"}
+                    className="mx-auto text-[0.8rem] lg:text-[0.9rem] md:text-[0.9rem]"
+                  />
                 </button>
               </div>
             </div>

@@ -32,7 +32,7 @@ const HomePage = () => {
         <section className="bg-stone-800">
           <Navbar/>
           <Shop />
-          <Footer />
+          {/* <Footer /> */}
         </section>
       )}
     </>
