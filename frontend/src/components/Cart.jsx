@@ -11,6 +11,38 @@ import {
   clearcart,
 } from "../redux/cartslice";
 import toast from "react-hot-toast";
+import styled from "styled-components";
+
+const StyledSection = styled.section`
+  @media (max-width: 640px) {
+    .name {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 1rem;
+      margin-left: 0rem;
+    }
+    .buttons {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .buttons button:nth-child(2) {
+      width: 100%;
+      margin-left: 0.5rem;
+    }
+    .plusminus {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    .plusminus div:nth-child(2) {
+      margin-right: 0rem;
+    }
+  }
+`;
 
 const Cart = () => {
   const [loading, setloading] = useState(true);
@@ -50,7 +82,7 @@ const Cart = () => {
         </div>
       ) : (
         <>
-          <section className="bg-stone-900 font-poppins">
+          <StyledSection className="bg-stone-900 font-poppins">
             <Navbar />
             <h1 className="text-white text-3xl font-semibold mt-8 ml-8">
               Cart
@@ -62,65 +94,69 @@ const Cart = () => {
                     return (
                       <div
                         key={item.id}
-                        className="flex items-center mx-6 p-3 bg-stone-600 text-white rounded-lg shadow-md mb-3"
+                        className="flex flex-col xl:flex-row xl:items-center lg:items-center lg:flex-row md:items-center md:flex-row mx-6 p-3 bg-stone-600 text-white rounded-lg shadow-md mb-3"
                       >
-                        <div className="flex items-center justify-center bg-blue-500 text-white rounded-full">
+                        <div className="flex items-center justify-center text-white rounded-full">
                           <img
                             src={`data:image/jpeg;base64,${item.image}`}
                             alt={item.name}
-                            className="w-[4rem] h-[4rem] rounded-full"
+                            className="w-[10rem] h-[10rem] xl:w-[4rem] xl:h-[4rem] lg:w-[4rem] lg:h-[4rem] md:w-[4rem] md:h-[4rem] rounded-full"
                           />
                         </div>
-                        <div className="flex-1 ml-4">
+                        <div className="name flex-1 ml-4">
                           <p className="font-medium">{item.name}</p>
                           <p className="text-sm text-stone-300">
                             Rs: {item.price}
                           </p>
                         </div>
-                        <div className="mr-16">
-                          <p>Rs: {item.price * item.quantity}</p>
+                        <div className="plusminus flex flex-row">
+                          <div className="mr-16">
+                            <p>Rs: {item.price * item.quantity}</p>
+                          </div>
+                          <div className="flex flex-row justify-between mr-10">
+                            <button
+                              className="bg-red-500 hover:bg-red-700 p-1 rounded mr-2"
+                              onClick={() => dispatch(increment(item.id))}
+                              disabled={item.quantity >= item.stock_status}
+                            >
+                              <FaPlus size={16} color={"white"} />
+                            </button>
+                            <input
+                              type="number"
+                              readOnly
+                              defaultValue={0}
+                              className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                              value={item.quantity}
+                            />
+                            <button
+                              className="bg-red-500 hover:bg-red-700 p-1 rounded ml-2"
+                              onClick={() => dispatch(decrement(item.id))}
+                              disabled={item.quantity < 1}
+                            >
+                              <FaMinus size={16} color={"white"} />
+                            </button>
+                          </div>
                         </div>
-                        <div className="flex flex-row justify-between mr-10">
-                          <button
-                            className="bg-red-500 hover:bg-red-700 p-1 rounded mr-2"
-                            onClick={() => dispatch(increment(item.id))}
-                            disabled={item.quantity >= item.stock_status}
-                          >
-                            <FaPlus size={16} color={"white"} />
+                        <div className="buttons">
+                          <button className="text-red-500 hover:text-red-700">
+                            <FaTrash
+                              size={16}
+                              onClick={() => handleremovefromcart(item)}
+                            />
                           </button>
-                          <input
-                            type="number"
-                            readOnly
-                            defaultValue={0}
-                            className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
-                            value={item.quantity}
-                          />
                           <button
-                            className="bg-red-500 hover:bg-red-700 p-1 rounded ml-2"
-                            onClick={() => dispatch(decrement(item.id))}
-                            disabled={item.quantity < 1}
+                            className="text-white bg-red-500 hover:bg-red-600 sm-medium text-sm px-8 py-2 rounded ml-8"
+                            disabled={item.quantity <= 0}
                           >
-                            <FaMinus size={16} color={"white"} />
+                            Continue
                           </button>
                         </div>
-                        <button className="text-red-500 hover:text-red-700">
-                          <FaTrash
-                            size={16}
-                            onClick={() => handleremovefromcart(item)}
-                          />
-                        </button>
-                        <button
-                          className="text-white bg-red-500 hover:bg-red-600 sm-medium text-sm px-8 py-2 rounded ml-8"
-                          disabled={item.quantity <= 0}
-                        >
-                          Continue
-                        </button>
                       </div>
                     );
                   })}
                 </div>
                 <button
-                  className="bg-red-500 hover:bg-red-600 rounded text-white px-8 py-2 mt-4 ml-6 text-sm"
+                  className="bg-red-500 hover:bg-red-600 rounded text-white px-8 py-2 my-4 ml-6 text-sm"
                   onClick={() => handleclearcart()}
                 >
                   Clear Cart
@@ -132,7 +168,7 @@ const Cart = () => {
               </h3>
             )}
             <Footer />
-          </section>
+          </StyledSection>
         </>
       )}
     </>

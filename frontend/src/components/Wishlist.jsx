@@ -52,7 +52,7 @@ const Wishlist = () => {
             </h1>
             {wishitems.length > 0 ? (
               <>
-                <div className={"mx-auto mt-6 text-white"}>
+                <div className="mx-auto mt-6 text-white">
                   {wishitems.map((item) => {
                     return (
                       <div
@@ -83,14 +83,14 @@ const Wishlist = () => {
                   })}
                 </div>
                 <button
-                  className="bg-red-500 hover:bg-red-600 rounded text-white px-8 py-2 mt-4 ml-6 text-sm"
+                  className="bg-red-500 hover:bg-red-600 rounded text-white px-16 py-2 my-4 ml-6 text-sm"
                   onClick={() => handleclearwishlist()}
                 >
-                  Clear Cart
+                  Clear Wishlist
                 </button>
               </>
             ) : (
-              <h3 className="text-white font-medium text-1xl text-center">
+              <h3 className="text-white font-medium text-1xl text-center mb-6">
                 WishList is Empty
               </h3>
             )}

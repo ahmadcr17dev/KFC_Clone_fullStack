@@ -503,7 +503,7 @@ const Shop = () => {
           onClick={closePopup}
         >
           <div
-            className="bg-stone-800 py-8 px-12 rounded-lg shadow-lg w-full mx-[170px] relative h-fit text-white"
+            className="bg-stone-800 py-8 px-12 rounded-lg shadow-lg w-fit relative xl:h-fit text-white max-h-[300px] overflow-x-auto lg:max-h-[400px] lg:overflow-x-auto md:max-h-[300px] md:overflow-x-auto md:mx-[1rem] mx-[0.1rem]"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
             <button
@@ -512,17 +512,19 @@ const Shop = () => {
             >
               ✖
             </button>
-            <div className="flex flex-row w-full">
+            <div className="flex flex-col xl:flex-row lg:flex-row md:flex-row w-full">
               <img
                 src={`data:image/jpeg;base64,${selectedProduct.image}`}
                 alt={selectedProduct.name}
-                className="w-[400px] h-[400px] rounded-full px-10"
+                className="w-[0px] h-[0px] xl:w-[400px] xl:h-[400px] rounded-full px-10 lg:w-[300px] lg:h-[300px] md:w-[250px] md:h-[199px]"
               />
               <div className="w-full">
-                <h2 className="text-2xl font-semibold mt-2">
+                <h2 className="text-[1.3rem] xl:text-2xl lg:text-2xl md:text-2xl font-semibold mt-2">
                   {selectedProduct.name}
                 </h2>
-                <p className="font-medium mt-4">Rs: {selectedProduct.price}</p>
+                <p className="xl:font-medium lg:font-medium md:font-medium mt-4">
+                  Rs: {selectedProduct.price}
+                </p>
                 {(selectedProduct.small_price > 0 ||
                   selectedProduct.medium_price > 0 ||
                   selectedProduct.large_price > 0) &&
@@ -637,9 +639,9 @@ const Shop = () => {
                         </p>
                       </div>
                       <div className="flex flex-row mt-6">
-                        <div className="flex flex-row justify-between">
+                        <div className="flex flex-row">
                           <button
-                            className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                             onClick={increment}
                             disabled={quantity >= selectedProduct.stock_status}
                           >
@@ -649,11 +651,11 @@ const Shop = () => {
                             type="number"
                             readOnly
                             defaultValue={0}
-                            className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                            className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                             value={quantity}
                           />
                           <button
-                            className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                             onClick={decrement}
                             disabled={quantity <= 0}
                           >
@@ -662,7 +664,7 @@ const Shop = () => {
                         </div>
                         <div>
                           <button
-                            className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                            className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                             onClick={() => handleproceed(selectedProduct)}
                           >
                             Proceed to Checkout
@@ -782,9 +784,9 @@ const Shop = () => {
                         </p>
                       </div>
                       <div className="flex flex-row mt-6">
-                        <div className="flex flex-row justify-between">
+                        <div className="flex flex-row">
                           <button
-                            className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                             onClick={increment}
                             disabled={quantity >= selectedProduct.stock_status}
                           >
@@ -794,11 +796,11 @@ const Shop = () => {
                             type="number"
                             readOnly
                             defaultValue={0}
-                            className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                            className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                             value={quantity}
                           />
                           <button
-                            className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                            className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                             onClick={decrement}
                             disabled={quantity <= 0}
                           >
@@ -807,7 +809,7 @@ const Shop = () => {
                         </div>
                         <div>
                           <button
-                            className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                            className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                             onClick={() => handleproceed(selectedProduct)}
                           >
                             Proceed To Checkout
@@ -846,10 +848,10 @@ const Shop = () => {
                           : quantity * selectedProduct.price}
                       </p>
                     </div>
-                    <div className="flex flex-row mt-4">
-                      <div className="flex flex-row justify-between">
+                    <div className="flex flex-row mt-6">
+                      <div className="flex flex-row">
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                           onClick={increment}
                           disabled={quantity >= selectedProduct.stock_status}
                         >
@@ -859,11 +861,11 @@ const Shop = () => {
                           type="number"
                           readOnly
                           defaultValue={0}
-                          className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                          className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                           value={quantity}
                         />
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                           onClick={decrement}
                           disabled={quantity <= 0}
                         >
@@ -872,7 +874,7 @@ const Shop = () => {
                       </div>
                       <div>
                         <button
-                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                           onClick={() => handleproceed(selectedProduct)}
                         >
                           Proceed To Checkout
@@ -884,14 +886,14 @@ const Shop = () => {
 
                 {selectedProduct.category === "fries" && (
                   <>
-                    <div className="flex flex-row justify-between mt-[15rem]">
+                    <div className="flex flex-row justify-between mt-[1rem] xl:mt-[15rem] lg:mt-[15rem] md:mt-[15rem]">
                       <p className="font-medium">SubTotal: </p>
                       <p>Rs: {quantity * selectedProduct.price}</p>
                     </div>
-                    <div className="flex flex-row mt-4">
-                      <div className="flex flex-row justify-between">
+                    <div className="flex flex-row mt-6">
+                      <div className="flex flex-row">
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                           onClick={increment}
                           disabled={quantity >= selectedProduct.stock_status}
                         >
@@ -901,11 +903,11 @@ const Shop = () => {
                           type="number"
                           readOnly
                           defaultValue={0}
-                          className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                          className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                           value={quantity}
                         />
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                           onClick={decrement}
                           disabled={quantity <= 0}
                         >
@@ -914,7 +916,7 @@ const Shop = () => {
                       </div>
                       <div>
                         <button
-                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                           onClick={() => handleproceed(selectedProduct)}
                         >
                           Proceed To Checkout
@@ -926,14 +928,14 @@ const Shop = () => {
 
                 {selectedProduct.category === "chicken" && (
                   <>
-                    <div className="flex flex-row justify-between mt-[15rem]">
+                    <div className="flex flex-row justify-between mt-[1rem] xl:mt-[15rem] lg:mt-[15rem] md:mt-[15rem]">
                       <p className="font-medium">SubTotal: </p>
                       <p>Rs: {quantity * selectedProduct.price}</p>
                     </div>
-                    <div className="flex flex-row mt-4 ">
-                      <div className="flex flex-row justify-between">
+                    <div className="flex flex-row mt-6">
+                      <div className="flex flex-row">
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                           onClick={increment}
                           disabled={quantity >= selectedProduct.stock_status}
                         >
@@ -943,11 +945,11 @@ const Shop = () => {
                           type="number"
                           readOnly
                           defaultValue={0}
-                          className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                          className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                           value={quantity}
                         />
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                           onClick={decrement}
                           disabled={quantity <= 0}
                         >
@@ -956,7 +958,7 @@ const Shop = () => {
                       </div>
                       <div>
                         <button
-                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                           onClick={() => handleproceed(selectedProduct)}
                         >
                           Proceed To Checkout
@@ -968,14 +970,14 @@ const Shop = () => {
 
                 {selectedProduct.category === "drinks" && (
                   <>
-                    <div className="flex flex-row justify-between mt-[15rem]">
+                    <div className="flex flex-row justify-between mt-[1rem] xl:mt-[15rem] lg:mt-[15rem] md:mt-[15rem]">
                       <p className="font-medium">SubTotal: </p>
                       <p>Rs: {quantity * selectedProduct.price}</p>
                     </div>
-                    <div className="flex flex-row mt-4">
-                      <div className="flex flex-row justify-between">
+                    <div className="flex flex-row mt-6">
+                      <div className="flex flex-row">
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                           onClick={increment}
                           disabled={quantity >= selectedProduct.stock_status}
                         >
@@ -985,11 +987,11 @@ const Shop = () => {
                           type="number"
                           readOnly
                           defaultValue={0}
-                          className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                          className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                           value={quantity}
                         />
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                           onClick={decrement}
                           disabled={quantity <= 0}
                         >
@@ -998,7 +1000,7 @@ const Shop = () => {
                       </div>
                       <div>
                         <button
-                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                           onClick={() => handleproceed(selectedProduct)}
                         >
                           Proceed To Checkout
@@ -1037,10 +1039,10 @@ const Shop = () => {
                           : quantity * selectedProduct.price}
                       </p>
                     </div>
-                    <div className="flex flex-row mt-4 ">
-                      <div className="flex flex-row justify-between">
+                    <div className="flex flex-row mt-6">
+                      <div className="flex flex-row">
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded mr-0 xl:mr-2 lg:mr-2 md:mr-2"
                           onClick={increment}
                           disabled={quantity >= selectedProduct.stock_status}
                         >
@@ -1050,11 +1052,11 @@ const Shop = () => {
                           type="number"
                           readOnly
                           defaultValue={0}
-                          className="w-[3rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                          className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
                           value={quantity}
                         />
                         <button
-                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-2"
+                          className="bg-red-500 hover:bg-red-700 px-2 rounded ml-0 xl:ml-2 lg:ml-2 md:ml-2"
                           onClick={decrement}
                           disabled={quantity <= 0}
                         >
@@ -1063,7 +1065,7 @@ const Shop = () => {
                       </div>
                       <div>
                         <button
-                          className="bg-red-500 rounded py-2 px-[7.1rem] text-white text-sm mx-1"
+                          className="w-full bg-red-500 rounded py-2 xl:px-[7.1rem] lg:px-[7.1rem] text-white text-[0.8rem] xl:text-sm lg:text-sm md:text-sm mx-1 md:px-[3rem] md:w-full"
                           onClick={() => handleproceed(selectedProduct)}
                         >
                           Proceed To Checkout

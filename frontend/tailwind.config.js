@@ -8,6 +8,9 @@ export default {
         montserrat: ['"Montserrat"', "sans-serif"],
         prompt: ['"Prompt"', "sans-serif"],
       },
+      screens: {
+        xs: "430px", // Custom breakpoint for small mobile devices
+      },
     },
   },
   variants: {},
