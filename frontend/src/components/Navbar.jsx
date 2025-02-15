@@ -125,8 +125,32 @@ const Stylednavbar = styled.nav`
     }
   }
   @media (max-width: 800px) and (min-width: 451px) {
-    #logo{
-      width: 4rem;
+    #logo {
+      width: 3rem;
+    }
+    #wish {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 0.8rem;
+        right: 2.4rem;
+        font-size: 0.6rem;
+        width: fit-content;
+        height: fit-content;
+        padding-inline: 5px;
+      }
+    }
+    #cart {
+      /* margin: 1rem 0rem 0rem 0rem; */
+      span {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.5rem;
+        font-size: 0.6rem;
+        width: fit-content;
+        height: fit-content;
+        padding-inline: 5px;
+      }
     }
   }
 `;
@@ -162,7 +186,7 @@ const Navbar = () => {
   return (
     <Stylednavbar className="bg-stone-800 text-black shadow-lg font-poppins">
       <div className="container mx-auto flex items-center justify-between py-4">
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between md:px-4">
           {/* Logo */}
           <div className="flex items-center">
             <img src={sitelogo} alt="Kicks&Fits" id="logo" />
@@ -170,15 +194,31 @@ const Navbar = () => {
 
           {/* Links & Contact Info */}
           <div className="menu-items md:flex md:items-center w-full md:w-auto mt-4 md:mt-0">
-            <ul className="md:flex md:space-x-6 items-center font-medium text-sm text-white ml-14">
+            <ul className="md:flex md:space-x-6 md:text-[0.7rem] items-center font-medium text-sm text-white ml-14">
               {/* Page Links */}
               <li>
-                <NavLink to="/" className="block py-2 md:py-0">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) => {
+                    console.log("isActive:", isActive);
+                    return `block py-2 md:py-0 ${
+                      isActive ? "text-red-500" : "text-white"
+                    }`;
+                  }}
+                >
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="shop" className="block py-2 md:py-0">
+                <NavLink
+                  to="/shop"
+                  className={({ isActive }) => {
+                    console.log("isActive:", isActive);
+                    return `block py-2 md:py-0 ${
+                      isActive ? "text-red-500" : "text-white"
+                    }`;
+                  }}
+                >
                   Shop
                 </NavLink>
               </li>
@@ -192,27 +232,43 @@ const Navbar = () => {
                   <li>
                     <NavLink
                       to="/"
-                      className="block py-2 md:py-0"
+                      className={({ isActive }) => {
+                        console.log("isActive:", isActive);
+                        return `block py-2 md:py-0 ${
+                          isActive ? "text-red-600" : "text-white"
+                        }`;
+                      }}
                       onClick={logout}
                     >
                       LogOut
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/" className="block py-2 md:py-0">
-                      Account
                     </NavLink>
                   </li>
                 </>
               ) : (
                 <>
                   <li>
-                    <NavLink to="login" className="block py-2 md:py-0">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) => {
+                        console.log("isActive:", isActive);
+                        return `block py-2 md:py-0 ${
+                          isActive ? "text-red-600" : "text-white"
+                        }`;
+                      }}
+                    >
                       Login
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="signup" className="block py-2 md:py-0">
+                    <NavLink
+                      to="/signup"
+                      className={({ isActive }) => {
+                        console.log("isActive:", isActive);
+                        return `block py-2 md:py-0 ${
+                          isActive ? "text-red-600" : "text-white"
+                        }`;
+                      }}
+                    >
                       Sign up
                     </NavLink>
                   </li>
@@ -224,15 +280,22 @@ const Navbar = () => {
         <div className="flex flex-row justify-between">
           {/* Contact Info */}
           <div className="phone mt-4 md:mt-0 md:ml-6 flex items-center text-white">
-            <FiPhone className="mr-2" />
-            <a href="tel:+123456789">+123 456 789</a>
+            <FiPhone className="mr-2 md:text-[0.7rem]" />
+            <a href="tel:+123456789" className="md:text-[0.7rem]">
+              +123 456 789
+            </a>
           </div>
 
           {/* Wishlist & Cart (For Larger Screens) */}
           <div className="icons hidden md:flex items-center gap-4 ml-6">
             <div id="wish">
               <NavLink to="/wishlist">
-                {<FiHeart size={"1.2rem"} color={"#fff"} />}
+                {
+                  <FiHeart
+                    color={"#fff"}
+                    className="xl:text-[1.2rem] lg:text-[1.2rem] md:text-[0.9rem]"
+                  />
+                }
               </NavLink>
               {wishcount > 0 && (
                 <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full text-center w-4 h-4">
@@ -242,7 +305,12 @@ const Navbar = () => {
             </div>
             <div id="cart">
               <NavLink to="/cart">
-                {<FiShoppingCart size={"1.2rem"} color={"#fff"} />}
+                {
+                  <FiShoppingCart
+                    color={"#fff"}
+                    className="xl:text-[1.2rem] lg:text-[1.2rem] md:text-[0.9rem]"
+                  />
+                }
               </NavLink>
               {cartcount > 0 && (
                 <span className="badge badge-danger text-[0.7rem] font-semibold rounded-full text-center w-4 h-4">

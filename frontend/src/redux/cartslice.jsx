@@ -58,12 +58,22 @@ const cartslice = createSlice({
     },
     clearcart: (state) => {
       state.items = [];
-      localStorage.setItem('cartitem', JSON.stringify(state.items));
+      localStorage.setItem("cartitem", JSON.stringify(state.items));
       state.cartcount = state.items.length;
-    }
+    },
+    initialcart: (state) => {
+      const savedcart = localStorage.getItem("cartitem");
+      state.cartcount = savedcart ? parseInt(savedcart, 10) : 0;
+    },
   },
 });
 
-export const { addtocart, deletefromcart, increment, decrement, clearcart } =
-  cartslice.actions;
+export const {
+  addtocart,
+  deletefromcart,
+  increment,
+  decrement,
+  clearcart,
+  initialcart,
+} = cartslice.actions;
 export default cartslice.reducer;
