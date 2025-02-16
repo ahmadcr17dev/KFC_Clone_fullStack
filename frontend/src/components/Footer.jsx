@@ -8,8 +8,8 @@ import { IoLogoGooglePlaystore } from "react-icons/io5";
 import styled from "styled-components";
 
 const Styledsection = styled.section`
-  @media (max-width: 640px){
-    .footer{
+  @media (max-width: 640px) {
+    .footer {
       display: flex;
       flex-direction: column;
       margin-left: 1rem;

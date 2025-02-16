@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import { Bars } from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
@@ -83,8 +81,7 @@ const Cart = () => {
       ) : (
         <>
           <StyledSection className="bg-stone-900 font-poppins">
-            <Navbar />
-            <h1 className="text-white text-3xl font-semibold mt-8 ml-8">
+            <h1 className="text-white text-3xl font-semibold pt-8 ml-8">
               Cart
             </h1>
             {cartitems.length > 0 ? (
@@ -167,7 +164,6 @@ const Cart = () => {
                 The Cart is Empty!
               </h3>
             )}
-            <Footer />
           </StyledSection>
         </>
       )}

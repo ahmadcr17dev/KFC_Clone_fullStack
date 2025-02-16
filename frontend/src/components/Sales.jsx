@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 
 const Sales = () => {
   const [products, setproducts] = useState([]);
+  const api_adminsales = VITE_ADMINSALES_KEY;
 
   useEffect(() => {
     const fetchsales = async () => {
       try {
-        const response = await fetch(
-          "http://localhost/kicksandfits/backend/api/adminsales.php",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const response = await fetch(api_adminsales, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
         if (response.ok) {
           const data = await response.json();
           if (data.success) {

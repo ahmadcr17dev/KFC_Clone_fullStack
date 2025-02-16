@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { Bars } from "react-loader-spinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +21,7 @@ const Proceed = () => {
     zip: "",
   });
   const navigate = useNavigate();
+  const api_sales = VITE_SALES_KEY;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,14 +59,11 @@ const Proceed = () => {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost/kicksandfits/backend/api/sales.php",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(salesData),
-        }
-      );
+      const response = await fetch(api_sales, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(salesData),
+      });
 
       const result = await response.json();
       if (result.status === "success") {
@@ -105,10 +101,9 @@ const Proceed = () => {
         </div>
       ) : (
         <>
-          <Navbar />
-          <section className="flex flex-row justify-between px-8 py-8 bg-stone-900 font-poppins">
+          <section className="flex flex-col md:flex-row justify-between px-8 py-8 bg-stone-900 font-poppins">
             <form
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-[65%] bg-stone-800 rounded-lg px-10 py-6 text-stone-300"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 w-full md:w-[65%] bg-stone-800 rounded-lg px-2 xl:px-10 lg:px-10 md:px-4 py-6 text-stone-300"
               onSubmit={handleSubmit}
             >
               <div>
@@ -167,7 +162,7 @@ const Proceed = () => {
 
               <div>
                 <label
-                  htmlFor="city"
+                  htmlFor="state"
                   className="block text-sm font-medium text-stone-300"
                 >
                   State
@@ -213,12 +208,6 @@ const Proceed = () => {
                 </label>
               </div>
 
-              <div>
-                <h1 className="text-stone-100 text-[1rem] mt-8">
-                  We are only providing Cash on Deliverey just now!
-                </h1>
-              </div>
-
               <div className="md:col-span-2">
                 <button
                   type="submit"
@@ -226,9 +215,15 @@ const Proceed = () => {
                 >
                   Checkout
                 </button>
+                <div>
+                  <h1 className="text-stone-100 text-sm mt-4">
+                    We are only providing Cash on Delivery just now!
+                  </h1>
+                </div>
               </div>
             </form>
-            <div className="bg-stone-800 px-10 py-6 mt-8 rounded-lg w-[33%] text-white">
+
+            <div className="bg-stone-800 px-2 xl:px-10 lg:px-10 md:px-4 py-6 mt-8 rounded-lg w-full md:w-[33%] text-white">
               <h2 className="text-[1.5rem] font-semibold mb-10">
                 Order Summary
               </h2>
@@ -282,7 +277,6 @@ const Proceed = () => {
               </div>
             </div>
           </section>
-          <Footer />
         </>
       )}
     </>

@@ -17,6 +17,8 @@ import Proceed from "./components/Proceed";
 import Sales from "./components/Sales";
 import { initialcart } from "./redux/cartslice";
 import { useDispatch } from "react-redux";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [user, setuser] = useState(null);
@@ -48,13 +50,59 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <HomePage />
+              <Footer />
+            </>
+          }
+        ></Route>
         <Route path="login" element={<LoginPage setuser={setuser} />} />
         <Route path="signup" element={<SignupPage />}></Route>
-        <Route path="shop" element={<ShopPage />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="wishlist" element={<Wishlist />} />
-        <Route path="proceed" element={<Proceed />} />
+        <Route
+          path="shop"
+          element={
+            <>
+              {" "}
+              <Navbar />
+              <ShopPage />
+              <Footer />{" "}
+            </>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <>
+              <Navbar />
+              <Cart />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="wishlist"
+          element={
+            <>
+              <Navbar />
+              <Wishlist />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="proceed"
+          element={
+            <>
+              <Navbar />
+              <Proceed />
+              <Footer />
+            </>
+          }
+        />
         <Route
           path="admin"
           element={

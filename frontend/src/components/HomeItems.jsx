@@ -1,41 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "react-multi-carousel/lib/styles.css";
-import styled from "styled-components";
-import axios from 'axios';
-
-const StyledSection = styled.section`
-  .image-box {
-    img {
-      width: fit-content;
-      height: fit-content;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-  @media (max-width: 464px) and (min-width: 0px) {
-    .title {
-      font-size: 1.5rem;
-    }
-    .lefty {
-      display: none;
-    }
-    .righty {
-      display: none;
-    }
-    .image-box img {
-      width: 15rem;
-      height: 13rem;
-    }
-  }
-  @media (max-width: 1030px) and (min-width: 800px) {
-    
-  }
-`;
+import axios from "axios";
 
 const HomeItems = () => {
-
-  const [items, setitems] = useState([]);
+  const [items, setItems] = useState([]);
   const homeitems_key = import.meta.env.VITE_HOME_ITEMS_KEY;
 
   useEffect(() => {
@@ -43,46 +10,41 @@ const HomeItems = () => {
       .get(homeitems_key)
       .then((response) => {
         console.log("API Data:", response.data);
-        setitems(Array.isArray(response.data) ? response.data : []);
+        setItems(Array.isArray(response.data) ? response.data : []);
       })
-      .catch((error) => console.error("Fetch error:", error))
+      .catch((error) => console.error("Fetch error:", error));
   }, []);
 
   return (
-    <>
-      <StyledSection className="mt-24 font-poppins pb-16 px-10">
-        <h1 className="title text-4xl text-white font-bold">BEST SELLER</h1>
-        <p style={{ color: "red", fontWeight: "bold", marginTop: "-15px" }}>
-          __________
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="image-box bg-stone-800 mx-1 rounded-lg shadow-md p-4 hover:cursor-pointer"
-            >
-              <p className="text-left text-white font-semibold text-2xl mt-4 pb-4">
-                {item.name}
-              </p>
-              <p className="text-left text-white font-semibold bg-red-600 w-fit px-6 py-1 rounded-tr-xl rounded-bl-xl ">
-                Rs: {item.price}
-              </p>
-              <img
-                src={`data:image/jpeg;base64,${item.image}`}
-                alt={item.name}
-              />
-            </div>
-          ))}
-        </div>
-      </StyledSection>
-    </>
+    <section className="mt-24 font-poppins pb-16 px-6 md:px-10">
+      {/* Title */}
+      <h1 className="text-3xl md:text-4xl text-white font-bold text-left">
+        BEST SELLER
+      </h1>
+      <p className="text-red-600 font-bold text-left -mt-3">__________</p>
+
+      {/* Products Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-10">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="bg-stone-800 rounded-lg shadow-md p-4 hover:cursor-pointer transition-transform hover:scale-105"
+          >
+            <p className="text-white font-semibold text-xl md:text-2xl">
+              {item.name}
+            </p>
+            <p className="text-white font-semibold bg-red-600 w-fit px-4 py-1 rounded-tr-xl rounded-bl-xl mt-2">
+              Rs: {item.price}
+            </p>
+            <img
+              src={`data:image/jpeg;base64,${item.image}`}
+              alt={item.name}
+              className="w-full h-48 md:h-56 lg:h-64 object-cover rounded-md mt-4"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

@@ -11,14 +11,17 @@ import sitelogo from "../images/Capture.png";
 const AdminSideBar = () => {
   const navigate = useNavigate();
 
+  // remove data local storage user and its role on logout
   const handlelogout = () => {
-    localStorage.clear("user");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
     toast.success("Logout Successful");
     navigate("/");
   };
 
   return (
     <>
+      {/* it is a side bar icons which will display components and Routes are handling it */}
       <section className="flex flex-col justify-container h-full w-fit font-poppins">
         <img
           src={sitelogo}

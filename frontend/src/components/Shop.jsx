@@ -166,7 +166,7 @@ const Shop = () => {
   return (
     <section className="h-full w-full font-poppins bg-stone-800">
       {/* Product List */}
-      <StyledSection className="mt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
+      <StyledSection className="pt-12 font-poppins pb-16 px-4 sm:px-6 md:px-10">
         <h1 className="text-2xl xl:text-3xl lg:text-3xl md:text-[2rem] text-white font-bold">
           Pizza Deals
         </h1>
@@ -648,10 +648,10 @@ const Shop = () => {
                             <FaPlus size={14} color={"white"} />
                           </button>
                           <input
-                            type="number"
+                            type="text"
                             readOnly
                             defaultValue={0}
-                            className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
+                            className="w-[1.5rem] h-auto p-1 rounded text-white text-center border-0 bg-stone-800"
                             value={quantity}
                           />
                           <button
@@ -793,7 +793,7 @@ const Shop = () => {
                             <FaPlus size={14} color={"white"} />
                           </button>
                           <input
-                            type="number"
+                            type="text"
                             readOnly
                             defaultValue={0}
                             className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
@@ -858,7 +858,7 @@ const Shop = () => {
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           defaultValue={0}
                           className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
@@ -900,7 +900,7 @@ const Shop = () => {
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           defaultValue={0}
                           className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
@@ -942,7 +942,7 @@ const Shop = () => {
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           defaultValue={0}
                           className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
@@ -984,7 +984,7 @@ const Shop = () => {
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           defaultValue={0}
                           className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"
@@ -1049,7 +1049,7 @@ const Shop = () => {
                           <FaPlus size={14} color={"white"} />
                         </button>
                         <input
-                          type="number"
+                          type="text"
                           readOnly
                           defaultValue={0}
                           className="w-[1.5rem] h-auto p-1 rounded text-white text-sm text-center border-0 bg-stone-800"

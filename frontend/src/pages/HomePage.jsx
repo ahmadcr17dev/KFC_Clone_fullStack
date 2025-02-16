@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import { Bars } from 'react-loader-spinner';
+import { Bars } from "react-loader-spinner";
 import HeroSection from "../components/HeroSection";
 import ExploreMenu from "../components/ExploreMenu";
 import HomeItems from "../components/HomeItems";
 import Email from "../components/Email";
-import Footer from '../components/Footer';
 
 const HomePage = () => {
   const [loading, setloading] = useState(true);
@@ -34,12 +32,10 @@ const HomePage = () => {
       ) : (
         <>
           <section className="bg-stone-900">
-            <Navbar />
             <HeroSection />
             <ExploreMenu />
             <HomeItems />
-            <Email/>
-            <Footer />
+            <Email />
           </section>
         </>
       )}

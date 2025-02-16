@@ -8,6 +8,9 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const api_key = import.meta.env.VITE_ALLPRODUCTS_KEY;
+  const api_delete_key = import.meta.env.VITE_DELETE_PRODUCT_KEY;
+  const api_update_key = import.meta.env.VITE_UPDATE_PRODUCT_KEY;
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -19,13 +22,10 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "http://localhost/kicksandfits/backend/api/allproducts.php",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const response = await fetch(api_key, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -46,14 +46,11 @@ const AllProducts = () => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const response = await fetch(
-        "http://localhost/kicksandfits/backend/api/deleteproduct.php",
-        {
-          method: "DELETE",
-          body: JSON.stringify({ id }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(api_delete_key, {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await response.json();
       if (data.status) {
         setProducts(products.filter((item) => item.id !== id));
@@ -100,13 +97,10 @@ const AllProducts = () => {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost/kicksandfits/backend/api/updateproduct.php",
-        {
-          method: "POST",
-          body: formDataToSend,
-        }
-      );
+      const response = await fetch(api_update_key, {
+        method: "POST",
+        body: formDataToSend,
+      });
 
       const data = await response.json();
 

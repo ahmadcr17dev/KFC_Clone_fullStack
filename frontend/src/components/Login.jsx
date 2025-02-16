@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 import sitelogo from "../images/Capture.png";
 
-const Login = ({setuser}) => {
+const Login = ({ setuser }) => {
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -39,7 +39,7 @@ const Login = ({setuser}) => {
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("role", data.role);
         setuser(data.user);
-        console.log('Logged Data: ', data.user);
+        console.log("Logged Data: ", data.user);
 
         // Navigate based on user type
         if (data.role === "admin") {

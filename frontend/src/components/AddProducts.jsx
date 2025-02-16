@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const AddProducts = () => {
+  // states to handle
   const [productid, setproductid] = useState("");
   const [productname, setproductname] = useState("");
   const [productprice, setproductprice] = useState("");
@@ -19,8 +20,10 @@ const AddProducts = () => {
   const [mediumprice, setmediumprice] = useState("");
   const [largeprice, setlargeprice] = useState("");
 
+  // api key
   const upload_product_key = import.meta.env.VITE_UPLOAD_PRODUCTS_KEY;
 
+  // a function to add data into form and it will work with php code
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -53,6 +56,7 @@ const AddProducts = () => {
     }
   };
 
+  // it will reset form after successful submission
   const resetForm = () => {
     setsmall(false);
     setmedium(false);

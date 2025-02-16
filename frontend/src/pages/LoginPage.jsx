@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
 import Login from "../components/Login";
 
-const LoginPage = ({setuser}) => {
+const LoginPage = ({ setuser }) => {
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
