@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Sales = () => {
   const [products, setproducts] = useState([]);
-  const api_adminsales = VITE_ADMINSALES_KEY;
+  const api_adminsales = import.meta.env.VITE_ADMINSALES_KEY;
 
   useEffect(() => {
     const fetchsales = async () => {
