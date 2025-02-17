@@ -7,7 +7,7 @@ const HomeItems = () => {
 
   useEffect(() => {
     axios
-      .get("https://kicksandfits.lovestoblog.com/api/homeitems.php")
+      .get("https://cors-anywhere.herokuapp.com/https://kicksandfits.lovestoblog.com/api/homeitems.php")
       .then((response) => {
         console.log("API Data:", response.data);
         setItems(Array.isArray(response.data) ? response.data : []);
