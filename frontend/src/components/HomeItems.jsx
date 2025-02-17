@@ -10,7 +10,8 @@ const HomeItems = () => {
       .get(homeitems_key)
       .then((response) => {
         console.log("API Data:", response.data);
-        setItems(Array.isArray(response.data) ? response.data : []);
+        const itemsData = Array.isArray(response.data) ? response.data : [];
+      setItems(itemsData);
       })
       .catch((error) => console.error("Fetch error:", error));
   }, []);
