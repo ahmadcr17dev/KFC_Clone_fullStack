@@ -7,7 +7,11 @@ const HomeItems = () => {
 
   useEffect(() => {
     axios
-      .get("https://kicksandfits.lovestoblog.com/api/homeitems.php")
+      .get("https://kicksandfits.lovestoblog.com/api/homeitems.php", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         console.log("API Data:", response.data);
         const itemsData = Array.isArray(response.data) ? response.data : [];
