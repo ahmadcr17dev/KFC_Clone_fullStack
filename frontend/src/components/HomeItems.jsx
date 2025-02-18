@@ -12,15 +12,11 @@ const HomeItems = () => {
           .get("https://kicksandfits.lovestoblog.com/api/homeitems.php", {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods":
-                "GET,PUT,POST,DELETE,PATCH,OPTIONS",
             },
           })
           .then((response) => {
             console.log("API Data:", response.data);
-            const itemsData = Array.isArray(response.data) ? response.data : [];
-            setItems(itemsData);
+            setItems(Array.isArray(response.data) ? response.data : []);
           })
           .catch((error) => console.error("Fetch error:", error));
       } catch (error) {
