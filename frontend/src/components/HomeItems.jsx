@@ -6,18 +6,28 @@ const HomeItems = () => {
   const homeitems_key = import.meta.env.VITE_HOME_ITEMS_KEY;
 
   useEffect(() => {
-    axios
-      .get("https://kicksandfits.lovestoblog.com/api/homeitems.php", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log("API Data:", response.data);
-        const itemsData = Array.isArray(response.data) ? response.data : [];
-        setItems(itemsData);
-      })
-      .catch((error) => console.error("Fetch error:", error));
+    const handlefetch = async () => {
+      try {
+        await axios
+          .get("https://kicksandfits.lovestoblog.com/api/homeitems.php", {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods":
+                "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            },
+          })
+          .then((response) => {
+            console.log("API Data:", response.data);
+            const itemsData = Array.isArray(response.data) ? response.data : [];
+            setItems(itemsData);
+          })
+          .catch((error) => console.error("Fetch error:", error));
+      } catch (error) {
+        console.log("Error in catch: ", error);
+      }
+    };
+    handlefetch();
   }, []);
 
   return (
