@@ -52,7 +52,7 @@ const AllProducts = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
-      if (data.status) {
+      if (data.success) {
         setProducts(products.filter((item) => item.id !== id));
         toast.success(data.message);
       } else {

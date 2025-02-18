@@ -9,7 +9,7 @@ const HomeItems = () => {
     const handlefetch = async () => {
       try {
         await axios
-          .get("https://kicksandfits.lovestoblog.com/api/homeitems.php", {
+          .get(homeitems_key, {
             headers: {
               "Content-Type": "application/json",
             },

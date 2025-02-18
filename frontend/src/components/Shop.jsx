@@ -69,13 +69,17 @@ const Shop = () => {
 
   useEffect(() => {
     axios
-      .get(products_key)
+      .get(products_key, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         console.log("API Data:", response.data);
         setpizzaitems(Array.isArray(response.data) ? response.data : []);
       })
       .catch((error) => console.error("Fetch error:", error));
-  }, []);
+  });
 
   // Filter products by category
   const getProductsByCategory = (category) => {
