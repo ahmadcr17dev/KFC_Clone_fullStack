@@ -7,7 +7,7 @@ const HomeItems = () => {
 
   useEffect(() => {
     axios
-      .get("http://kicksandfits.mygamesonline.org/homeitems.php")
+      .get("https://kicksandfits.mygamesonline.org/homeitems.php")
       .then((response) => {
         console.log("API Data:", response.data);
         const itemsData = Array.isArray(response.data) ? response.data : [];
