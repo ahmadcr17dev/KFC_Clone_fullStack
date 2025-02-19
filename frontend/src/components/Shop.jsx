@@ -81,6 +81,8 @@ const Shop = () => {
       .catch((error) => console.error("Fetch error:", error));
   });
 
+
+
   // Filter products by category
   const getProductsByCategory = (category) => {
     return pizzaitems.filter(
@@ -195,8 +197,8 @@ const Shop = () => {
               </p>
               <p
                 dangerouslySetInnerHTML={{
-                  __html: item.description.slice(0, 55),
-                }}
+    __html: item.description.length > 55 ? item.description.slice(0, 55) + "..." : item.description,
+  }}
                 className="text-stone-300 text-[0rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-medium mt-2 pb-2"
               ></p>
               <p className="text-white text-[0.7rem] xl:text-sm lg:text-[0.7rem] md:text-[0.7rem] font-semibold bg-red-600 w-fit px-6 py-1 rounded-bl-xl">

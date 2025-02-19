@@ -27,11 +27,6 @@ const Login = ({ setuser }) => {
         body: JSON.stringify(user),
       });
 
-      if (!response.ok) {
-        toast.error("Failed to connect to the server.");
-        return;
-      }
-
       const data = await response.json();
 
       if (data.success) {

@@ -21,7 +21,7 @@ const Proceed = () => {
     zip: "",
   });
   const navigate = useNavigate();
-  const api_sales = VITE_SALES_KEY;
+  const api_sales = import.meta.env.VITE_SALES_KEY;
 
   useEffect(() => {
     const timer = setTimeout(() => {

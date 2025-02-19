@@ -44,24 +44,35 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
-  const handleDeleteProduct = async (id) => {
+ const handleDeleteProduct = async (id) => {
     try {
-      const response = await fetch(api_delete_key, {
-        method: "DELETE",
+      const response = await fetch(api_delete_key, { 
+        method: "POST", // Changed from DELETE to POST
         body: JSON.stringify({ id }),
         headers: { "Content-Type": "application/json" },
       });
-      const data = await response.json();
-      if (data.success) {
-        setProducts(products.filter((item) => item.id !== id));
-        toast.success(data.message);
-      } else {
-        toast.error(data.message);
+
+      const text = await response.text(); // Read response as text first
+
+      try {
+        const data = JSON.parse(text); // Try to parse JSON
+        if (data.success) {
+          setProducts(products.filter((item) => item.id !== id));
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      } catch (jsonError) {
+        console.log("Received non-JSON response:", text);
+        toast.error("Unexpected response from server.");
       }
+
     } catch (error) {
       console.log("Error in Catch:", error);
+      toast.error("Server connection failed.");
     }
-  };
+};
+
 
   const handleEditProduct = (product) => {
     setSelectedProduct(product);
