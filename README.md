@@ -50,7 +50,7 @@ Features
 6. Start the backend server (Apache or any local server like XAMPP)  
 
 ## Usage  
-- Open the frontend in a browser (default: `https://ahmadcr17dev.github.io/KFC_Clone_fullStack/`)  
+- Visit the website at https://kicksandfits.lovestoblog.com
 
 ## Future Improvements  
 - Implement authentication for secure login  
